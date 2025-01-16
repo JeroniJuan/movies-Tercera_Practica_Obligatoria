@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 @Entity
 public class Production_Country {
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
@@ -15,11 +16,11 @@ public class Production_Country {
     @JoinColumn(name = "country_id", referencedColumnName = "country_id")
     private Country country;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

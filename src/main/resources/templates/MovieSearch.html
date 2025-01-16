@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Search</title>
+</head>
+<body>
+    <h1>Cerca peliculas:</h1>
+    <form>
+        <h4>Per Actor</h4>
+        <input type="text">
+    </form>
+    <form>
+        <h4>Per Personatges</h4>
+        <input type="text">
+    </form>
+    <form>
+        <h4>Per Titol</h4>
+        <input type="text">
+    </form>
+    <form>
+        <h4>Per Director</h4>
+        <input type="text">
+    </form>
+    <h1>Llistat de peliculas</h1>
+    <ol>
+        <li th:each = "movie : ${movies}">
+            [[${movie.title}]]
+        </li>
+    </ol>
+</body>
+</html>
