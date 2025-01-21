@@ -4,57 +4,60 @@ import jakarta.persistence.*;
 
 @Entity
 public class Movie_Cast {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @EmbeddedId
+    private Movie_CastKey id;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
-    private Movie movie_id;
+    @MapsId("movie_id")
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 
     @ManyToOne
-    @JoinColumn(name = "gender_id", referencedColumnName = "gender_id")
-    private Gender gender_id;
+    @MapsId("gender_id")
+    @JoinColumn(name = "gender_id")
+    private Gender gender;
 
     @ManyToOne
-    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
-    private Person person_id;
+    @MapsId("person_id")
+    @JoinColumn(name = "person_id")
+    private Person person;
 
     @Column(length = 400)
     private String character_name;
 
+    @Column
     private int cast_order;
 
-    public int getId() {
+    public Movie_CastKey getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Movie_CastKey id) {
         this.id = id;
     }
 
-    public Movie getMovie_id() {
-        return movie_id;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setMovie_id(Movie movie_id) {
-        this.movie_id = movie_id;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
-    public Gender getGender_id() {
-        return gender_id;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setGender_id(Gender gender_id) {
-        this.gender_id = gender_id;
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
-    public Person getPerson_id() {
-        return person_id;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPerson_id(Person person_id) {
-        this.person_id = person_id;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public String getCharacter_name() {

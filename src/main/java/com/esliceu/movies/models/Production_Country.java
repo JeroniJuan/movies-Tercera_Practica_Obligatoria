@@ -4,23 +4,24 @@ import jakarta.persistence.*;
 
 @Entity
 public class Production_Country {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @EmbeddedId
+    private Production_CountryKey id;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
+    @MapsId("movie_id")
+    @JoinColumn(name = "movie_id")
     private Movie movie;
 
     @ManyToOne
-    @JoinColumn(name = "country_id", referencedColumnName = "country_id")
+    @MapsId("country_id")
+    @JoinColumn(name = "country_id")
     private Country country;
 
-    public int getId() {
+    public Production_CountryKey getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Production_CountryKey id) {
         this.id = id;
     }
 

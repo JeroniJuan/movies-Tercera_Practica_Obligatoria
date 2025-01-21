@@ -6,17 +6,18 @@ import jakarta.persistence.*;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int person_id;
+    @Column(name = "person_id")
+    private int id;
 
     @Column(length = 500)
     private String person_name;
 
-    public int getPerson_id() {
-        return person_id;
+    public int getId() {
+        return id;
     }
 
-    public void setPerson_id(int person_id) {
-        this.person_id = person_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPerson_name() {

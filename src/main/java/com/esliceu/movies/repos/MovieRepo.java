@@ -10,7 +10,7 @@ import java.util.List;
 public interface MovieRepo extends JpaRepository<Movie, Long> {
     List<Movie> findAll();
 
-    @Query("SELECT * FROM Movie WHERE title = :title")
-    List<Movie> findMoviesByTitle(String title);
+    List<Movie> findByTitle(String title);
+
 }
 

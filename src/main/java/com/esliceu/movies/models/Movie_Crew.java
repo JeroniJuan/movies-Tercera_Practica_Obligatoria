@@ -4,55 +4,57 @@ import jakarta.persistence.*;
 
 @Entity
 public class Movie_Crew {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @EmbeddedId
+    private Movie_CrewKey id;
 
     @ManyToOne
-    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
-    private Person person_id;
+    @MapsId("person_id")
+    @JoinColumn(name = "person_id")
+    private Person person;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
-    private Movie movie_id;
+    @MapsId("movie_id")
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 
     @ManyToOne
-    @JoinColumn(name = "department_id", referencedColumnName = "department_id")
-    private Department department_id;
+    @MapsId("department_id")
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     @Column(length = 200)
     private String job;
 
-    public int getId() {
+    public Movie_CrewKey getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Movie_CrewKey id) {
         this.id = id;
     }
 
-    public Person getPerson_id() {
-        return person_id;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPerson_id(Person person_id) {
-        this.person_id = person_id;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-    public Movie getMovie_id() {
-        return movie_id;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setMovie_id(Movie movie_id) {
-        this.movie_id = movie_id;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
-    public Department getDepartment_id() {
-        return department_id;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartment_id(Department department_id) {
-        this.department_id = department_id;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public String getJob() {

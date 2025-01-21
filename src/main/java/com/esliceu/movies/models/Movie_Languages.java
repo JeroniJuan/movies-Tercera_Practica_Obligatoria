@@ -4,51 +4,53 @@ import jakarta.persistence.*;
 
 @Entity
 public class Movie_Languages {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @EmbeddedId
+    private Movie_LanguagesKey id;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
-    private Movie movie_id;
+    @MapsId("movie_id")
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 
     @ManyToOne
-    @JoinColumn(name = "language_id", referencedColumnName = "language_id")
-    private Language language_id;
+    @MapsId("language_id")
+    @JoinColumn(name = "language_id")
+    private Language language;
 
     @ManyToOne
-    @JoinColumn(name = "language_role_id", referencedColumnName = "role_id")
-    private Language_Role language_role_id;
+    @MapsId("language_role_id")
+    @JoinColumn(name = "language_role_id")
+    private Language_Role language_role;
 
-    public int getId() {
+    public Movie_LanguagesKey getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Movie_LanguagesKey id) {
         this.id = id;
     }
 
-    public Movie getMovie_id() {
-        return movie_id;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setMovie_id(Movie movie_id) {
-        this.movie_id = movie_id;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
-    public Language getLanguage_id() {
-        return language_id;
+    public Language getLanguage() {
+        return language;
     }
 
-    public void setLanguage_id(Language language_id) {
-        this.language_id = language_id;
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
-    public Language_Role getLanguage_role_id() {
-        return language_role_id;
+    public Language_Role getLanguage_role() {
+        return language_role;
     }
 
-    public void setLanguage_role_id(Language_Role language_role_id) {
-        this.language_role_id = language_role_id;
+    public void setLanguage_role(Language_Role language_role) {
+        this.language_role = language_role;
     }
 }

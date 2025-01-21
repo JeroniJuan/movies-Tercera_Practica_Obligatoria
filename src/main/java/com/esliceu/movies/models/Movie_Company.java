@@ -4,32 +4,25 @@ import jakarta.persistence.*;
 
 @Entity
 public class Movie_Company {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @EmbeddedId
+    private Movie_CompanyKey id;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
-    private Movie movie_id;
+    @MapsId("movie_id")
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", referencedColumnName = "company_id")
+    @MapsId("company_id")
+    @JoinColumn(name = "company_id")
     private Production_Company company_id;
 
-    public int getId() {
+    public Movie_CompanyKey getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Movie_CompanyKey id) {
         this.id = id;
-    }
-
-    public Movie getMovie_id() {
-        return movie_id;
-    }
-
-    public void setMovie_id(Movie movie_id) {
-        this.movie_id = movie_id;
     }
 
     public Production_Company getCompany_id() {
@@ -37,6 +30,22 @@ public class Movie_Company {
     }
 
     public void setCompany_id(Production_Company company_id) {
+        this.company_id = company_id;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie_id) {
+        this.movie = movie_id;
+    }
+
+    public Production_Company getCompany() {
+        return company_id;
+    }
+
+    public void setCompany(Production_Company company_id) {
         this.company_id = company_id;
     }
 }

@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface MovieCastRepo extends JpaRepository<Movie_Cast, Long> {
-    @Query("SELECT * FROM Movie_Cast WHERE person_id = :person_id")
-    List<Movie> findMovieCastByPersonId(String person_id);
+    List<Movie_Cast> findByPersonId(int person_id);
 
-    @Query("SELECT * FROM movie INNER JOIN movie_cast WHERE movie.movie_id = movie_cast.movie_id AND movie_cast.person_id = :person_id")
-    List<Movie> findMoviesByCastPersonId(String person_id);
+    List<Movie_Cast> findByMovieId(String movie_id);
+
+
 }

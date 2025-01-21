@@ -4,39 +4,40 @@ import jakarta.persistence.*;
 
 @Entity
 public class Movie_Keywords {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @EmbeddedId
+    private Movie_KeywordsKey id;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
-    private Movie movie_id;
+    @MapsId("movie_id")
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 
     @ManyToOne
-    @JoinColumn(name = "keyword_id", referencedColumnName = "keyword_id")
-    private Keyword keyword_id;
+    @MapsId("keyword_id")
+    @JoinColumn(name = "keyword_id")
+    private Keyword keyword;
 
-    public int getId() {
+    public Movie_KeywordsKey getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Movie_KeywordsKey id) {
         this.id = id;
     }
 
-    public Movie getMovie_id() {
-        return movie_id;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setMovie_id(Movie movie_id) {
-        this.movie_id = movie_id;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
-    public Keyword getKeyword_id() {
-        return keyword_id;
+    public Keyword getKeyword() {
+        return keyword;
     }
 
-    public void setKeyword_id(Keyword keyword_id) {
-        this.keyword_id = keyword_id;
+    public void setKeyword(Keyword keyword) {
+        this.keyword = keyword;
     }
 }
