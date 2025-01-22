@@ -6,17 +6,18 @@ import jakarta.persistence.*;
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int department_id;
+    @Column(name = "department_id")
+    private int id;
 
     @Column(length = 200)
     private String department_name;
 
-    public int getDepartment_id() {
-        return department_id;
+    public int getId() {
+        return id;
     }
 
-    public void setDepartment_id(int department_id) {
-        this.department_id = department_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDepartment_name() {

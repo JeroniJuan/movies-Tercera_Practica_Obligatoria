@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int language_id;
+    @Column(name = "language_id")
+    private int id;
 
     @Column(length = 10)
     private String language_code;
@@ -14,12 +15,12 @@ public class Language {
     @Column(length = 500)
     private String language_name;
 
-    public int getLanguage_id() {
-        return language_id;
+    public int getId() {
+        return id;
     }
 
-    public void setLanguage_id(int language_id) {
-        this.language_id = language_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getLanguage_code() {

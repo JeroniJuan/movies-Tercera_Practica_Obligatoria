@@ -11,6 +11,15 @@ public interface MovieRepo extends JpaRepository<Movie, Long> {
     List<Movie> findAll();
 
     List<Movie> findByTitle(String title);
+    // Troba totas les peliculas del actor amb la id
+    List<Movie> findByMovieCastsPersonId(int person_id);
 
+    List<Movie> findByMovieCastsCharacterName(String character_name);
+
+    // Troba totes les peliculas amb el membre de la crew.
+    List<Movie> findByMovieCrewsPersonId(int person_id);
+
+    // Filtra pelicules per genre
+    List<Movie> findByMovieGenresGenreGenreName(String genre_name);
 }
 

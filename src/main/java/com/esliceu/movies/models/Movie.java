@@ -4,12 +4,23 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int movie_id;
+    @Column(name = "movie_id")
+    private int id;
+
+    @OneToMany(mappedBy = "movie")
+    private List<Movie_Cast> movieCasts;
+
+    @OneToMany(mappedBy = "movie")
+    private List<Movie_Crew> movieCrews;
+
+    @OneToMany(mappedBy = "movie")
+    private List<Movie_Genre> movieGenres;
 
     @Column(length = 1000)
     private String title;
@@ -42,6 +53,30 @@ public class Movie {
 
     private int vote_count;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Movie_Cast> getMovieCasts() {
+        return movieCasts;
+    }
+
+    public void setMovieCasts(List<Movie_Cast> movieCasts) {
+        this.movieCasts = movieCasts;
+    }
+
+    public List<Movie_Crew> getMovieCrews() {
+        return movieCrews;
+    }
+
+    public void setMovieCrews(List<Movie_Crew> movieCrew) {
+        this.movieCrews = movieCrew;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -51,11 +86,11 @@ public class Movie {
     }
 
     public int getMovie_id() {
-        return movie_id;
+        return id;
     }
 
     public void setMovie_id(int movie_id) {
-        this.movie_id = movie_id;
+        this.id = movie_id;
     }
 
     public int getBudget() {

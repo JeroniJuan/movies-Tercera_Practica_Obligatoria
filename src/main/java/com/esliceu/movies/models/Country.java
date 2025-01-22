@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int country_id;
+    @Column(name = "country_id")
+    private int id;
 
     @Column(length = 10)
     private String country_iso_code;
@@ -14,12 +15,12 @@ public class Country {
     @Column(length = 200)
     private String country_name;
 
-    public int getCountry_id() {
-        return country_id;
+    public int getId() {
+        return id;
     }
 
-    public void setCountry_id(int country_id) {
-        this.country_id = country_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCountry_iso_code() {

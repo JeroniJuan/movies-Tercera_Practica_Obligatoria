@@ -22,8 +22,8 @@ public class Movie_Cast {
     @JoinColumn(name = "person_id")
     private Person person;
 
-    @Column(length = 400)
-    private String character_name;
+    @Column(length = 400, name = "character_name")
+    private String characterName;
 
     @Column
     private int cast_order;
@@ -60,12 +60,12 @@ public class Movie_Cast {
         this.person = person;
     }
 
-    public String getCharacter_name() {
-        return character_name;
+    public String getCharacterName() {
+        return characterName;
     }
 
-    public void setCharacter_name(String character_name) {
-        this.character_name = character_name;
+    public void setCharacterName(String characterName) {
+        this.characterName = characterName;
     }
 
     public int getCast_order() {

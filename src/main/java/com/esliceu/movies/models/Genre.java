@@ -6,24 +6,25 @@ import jakarta.persistence.*;
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int genre_id;
+    @Column(name = "genre_id")
+    private int id;
 
-    @Column(length = 100)
-    private String genre_name;
+    @Column(length = 100, name = "genre_name")
+    private String genreName;
 
-    public int getGenre_id() {
-        return genre_id;
+    public int getId() {
+        return id;
     }
 
-    public void setGenre_id(int genre_id) {
-        this.genre_id = genre_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getGenre_name() {
-        return genre_name;
+    public String getGenreName() {
+        return genreName;
     }
 
-    public void setGenre_name(String genre_name) {
-        this.genre_name = genre_name;
+    public void setGenreName(String genre_name) {
+        this.genreName = genre_name;
     }
 }

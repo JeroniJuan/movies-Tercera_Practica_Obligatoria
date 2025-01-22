@@ -9,8 +9,8 @@ public class Person {
     @Column(name = "person_id")
     private int id;
 
-    @Column(length = 500)
-    private String person_name;
+    @Column(length = 500, name = "person_name")
+    private String personName;
 
     public int getId() {
         return id;
@@ -20,11 +20,11 @@ public class Person {
         this.id = id;
     }
 
-    public String getPerson_name() {
-        return person_name;
+    public String getPersonName() {
+        return personName;
     }
 
-    public void setPerson_name(String person_name) {
-        this.person_name = person_name;
+    public void setPersonName(String personName) {
+        this.personName = personName;
     }
 }
