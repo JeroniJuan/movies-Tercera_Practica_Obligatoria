@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface MovieRepo extends JpaRepository<Movie, Long> {
+public interface MovieRepo extends JpaRepository<Movie, Integer> {
     List<Movie> findAll();
 
     List<Movie> findByTitle(String title);
@@ -21,5 +21,7 @@ public interface MovieRepo extends JpaRepository<Movie, Long> {
 
     // Filtra pelicules per genre
     List<Movie> findByMovieGenresGenreGenreName(String genre_name);
+
+
 }
 

@@ -1,5 +1,6 @@
 package com.esliceu.movies.services;
 
+import com.esliceu.movies.models.Country;
 import com.esliceu.movies.models.Movie;
 import com.esliceu.movies.repos.MovieRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,11 @@ public class MovieService {
         return movieRepo.findByMovieCrewsPersonId(person_id);
     }
 
+    public Movie save(Movie movie) {
+        return movieRepo.save(movie);
+    }
 
+    public void deleteById(int id) {
+        movieRepo.deleteById(id);
+    }
 }
