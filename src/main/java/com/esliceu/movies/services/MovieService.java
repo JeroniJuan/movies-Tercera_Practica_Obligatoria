@@ -18,7 +18,7 @@ public class MovieService {
     }
 
     public List<Movie> findMovieByTitle(String title){
-        return movieRepo.findByTitle(title);
+        return movieRepo.findByTitleContainingIgnoreCase(title);
     }
 
     public List<Movie> findMoviesByCast(int person_id){

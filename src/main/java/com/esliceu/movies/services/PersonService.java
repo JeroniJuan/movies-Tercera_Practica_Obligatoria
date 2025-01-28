@@ -27,4 +27,8 @@ public class PersonService {
     public void deleteById(int id) {
         personRepo.deleteById(id);
     }
+
+    public Person findPersonByName(String personName) {
+        return personRepo.findByPersonName(personName);
+    }
 }

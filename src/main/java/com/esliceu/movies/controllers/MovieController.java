@@ -68,9 +68,12 @@ public class MovieController {
         System.out.println("Actualitzant pelicula");
         movieService.save(movie);
 
+        return "redirect:/";
+    }
 
-
-
+    @GetMapping("/delMovie")
+    public String deleteMovie(@RequestParam int id){
+        movieService.deleteById(id);
         return "redirect:/";
     }
 }

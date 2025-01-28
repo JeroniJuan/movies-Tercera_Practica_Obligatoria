@@ -1,9 +1,11 @@
 package com.esliceu.movies.controllers;
 
 import com.esliceu.movies.models.Movie;
+import com.esliceu.movies.models.Movie_Crew;
 import com.esliceu.movies.services.MovieCastService;
 import com.esliceu.movies.services.MovieCrewService;
 import com.esliceu.movies.services.MovieService;
+import com.esliceu.movies.services.PersonService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class SearchController {
@@ -21,6 +24,8 @@ public class SearchController {
     MovieCastService movieCastService;
     @Autowired
     MovieCrewService movieCrewService;
+    @Autowired
+    PersonService personService;
 
     @GetMapping("/MovieSearchTitle")
     public String getMovieSearchTitle(Model model, @RequestParam("movie") String movieTitle){
@@ -44,12 +49,25 @@ public class SearchController {
     }
 
     @GetMapping("/MovieSearchDirector")
-    public String getMovieSearchDirector(Model model, @RequestParam("director") String director_name){
-        int director_id = movieCrewService.getDirectorByName(director_name);
-        List<Movie> movieList = movieService.findMoviesByCrew(director_id);
-        model.addAttribute("movies", movieList);
+    public String getMovieSearchDirector(Model model, @RequestParam("director") String director_name) {
+        int director_id = personService.findPersonByName(director_name).getId();
+
+        List<Movie_Crew> movieCrewList = movieCrewService.findMovieCrewByPersonId(director_id);
+
+        List<Movie_Crew> directorCrewList = movieCrewList.stream()
+                .filter(crew -> "Director".equalsIgnoreCase(crew.getJob()))
+                .collect(Collectors.toList());
+
+        List<Movie> movieListDirector = directorCrewList.stream()
+                .map(Movie_Crew::getMovie)
+                .distinct()
+                .collect(Collectors.toList());
+
+        model.addAttribute("movies", movieListDirector);
+
         return "MovieSearch";
     }
+
 
     @GetMapping("/")
     public String getIndex(Model model, HttpSession session){

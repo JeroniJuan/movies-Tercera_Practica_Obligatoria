@@ -1,6 +1,7 @@
 package com.esliceu.movies.services;
 
 import com.esliceu.movies.models.Movie_Cast;
+import com.esliceu.movies.models.Person;
 import com.esliceu.movies.repos.MovieCastRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,8 @@ import java.util.List;
 public class MovieCastService {
     @Autowired
     MovieCastRepo movieCastRepo;
+    @Autowired
+    PersonService personService;
 
     public List<Movie_Cast> findMovieCastByPersonId(int person_id){
       return movieCastRepo.findByPersonId(person_id);

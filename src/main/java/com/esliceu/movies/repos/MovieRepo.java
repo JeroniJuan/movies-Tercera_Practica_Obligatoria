@@ -21,7 +21,6 @@ public interface MovieRepo extends JpaRepository<Movie, Integer> {
 
     // Filtra pelicules per genre
     List<Movie> findByMovieGenresGenreGenreName(String genre_name);
-
-
+    
+    List<Movie> findByTitleContainingIgnoreCase(String title);
 }
-

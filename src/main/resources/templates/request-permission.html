@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sol·licitar Permís</title>
+    <link rel="stylesheet" href="request-permission.css">
+</head>
+<body>
+<h1>Sol·licitar Permís</h1>
+
+<form th:action="@{/request}" method="post">
+    <div>
+        <label for="permissionId">Selecciona un permís:</label>
+        <select id="permissionId" name="permissionId" required>
+            <option th:each="permission : ${permissions}"
+                    th:value="${permission.id}"
+                    th:text="${permission.permissionName}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="userId">ID de l'usuari:</label>
+        <input type="number" id="userId" name="userId" required>
+    </div>
+    <button type="submit">Sol·licitar</button>
+</form>
+
+<p th:if="${param.success != null}" style="color:green;">Permís sol·licitat correctament!</p>
+
+</body>
+</html>

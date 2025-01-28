@@ -35,4 +35,12 @@ public class PermissionService {
 
         return false;
     }
+
+    public List<Permission> findAll() {
+        return permissionRepo.findAll();
+    }
+
+    public Permission findById(int id) {
+        return permissionRepo.findById(id).orElse(null);
+    }
 }
