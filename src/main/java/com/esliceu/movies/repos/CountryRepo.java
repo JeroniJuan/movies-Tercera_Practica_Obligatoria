@@ -9,5 +9,5 @@ import java.util.List;
 public interface CountryRepo extends JpaRepository<Country, Integer> {
     List<Country> findAll();
 
-    Country findByCountryId(int id);
+    Country findById(int id);
 }

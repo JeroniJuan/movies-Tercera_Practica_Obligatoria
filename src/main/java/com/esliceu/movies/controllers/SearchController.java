@@ -4,6 +4,7 @@ import com.esliceu.movies.models.Movie;
 import com.esliceu.movies.services.MovieCastService;
 import com.esliceu.movies.services.MovieCrewService;
 import com.esliceu.movies.services.MovieService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,7 +52,12 @@ public class SearchController {
     }
 
     @GetMapping("/")
-    public String getIndex(Model model){
+    public String getIndex(Model model, HttpSession session){
+        Object loggedInUser = session.getAttribute("loggedInUser");
+        System.out.println("Iniciant index amb sessio " + loggedInUser);
+        if (loggedInUser != null) {
+            model.addAttribute("loggedInUser", loggedInUser);
+        }
         return "index";
     }
 }

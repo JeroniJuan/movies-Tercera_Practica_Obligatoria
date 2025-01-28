@@ -40,4 +40,8 @@ public class MovieService {
     public void deleteById(int id) {
         movieRepo.deleteById(id);
     }
+
+    public Movie findById(int id) {
+        return movieRepo.findById(id).orElse(null);
+    }
 }

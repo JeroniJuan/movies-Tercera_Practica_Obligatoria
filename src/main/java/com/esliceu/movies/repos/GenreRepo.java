@@ -8,5 +8,5 @@ import java.util.List;
 public interface GenreRepo extends JpaRepository<Genre, Integer> {
     List<Genre> findAll();
 
-    Genre findByGenreId(int id);
+    Genre findById(int id);
 }

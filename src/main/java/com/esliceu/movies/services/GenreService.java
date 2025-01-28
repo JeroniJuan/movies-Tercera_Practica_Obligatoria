@@ -17,7 +17,7 @@ public class GenreService {
     }
 
     public Genre findById(int id) {
-        return genreRepo.findByGenreId(id);
+        return genreRepo.findById(id);
     }
 
     public Genre save(Genre genre) {

@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Movie Search</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Llistat de peliculas</h1>
     <ol>
-        <li th:each = "movie : ${movies}">
-            [[${movie.title}]]
+        <li th:each="movie : ${movies}">
+            <a th:href="@{/movie(id=${movie.movie_id})}">[[${movie.title}]]</a>
         </li>
     </ol>
 </body>

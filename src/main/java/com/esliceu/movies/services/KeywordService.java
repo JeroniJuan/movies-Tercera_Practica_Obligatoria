@@ -17,7 +17,7 @@ public class KeywordService {
     }
 
     public Keyword findById(int id) {
-        return keywordRepo.findByKeywordId(id);
+        return keywordRepo.findById(id);
     }
 
     public Keyword save(Keyword keyword) {

@@ -1,31 +1,46 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>Cerca Películas</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h1>Cerca peliculas:</h1>
-<form action="/MovieSearchCast" method="get">
-    <h4>Per Actor</h4>
-    <input type="text" name="actor" placeholder="Escriu el nom del actor">
-    <input type="submit" value="Cercar">
-</form>
-<form action="/MovieSearchCharacter" method="get">
-    <h4>Per Personatges</h4>
-    <input type="text" name="character" placeholder="Escriu el nom del personatge">
-    <input type="submit" value="Cercar">
-</form>
-<form action="/MovieSearchTitle" method="get">
-    <h4>Per Titol</h4>
-    <input type="text" name="movie" placeholder="Escriu el titol">
-    <input type="submit" value="Cercar">
-</form>
-<form action="/MovieSearchDirector" method="get">
-    <h4>Per Director</h4>
-    <input type="text" name="director" placeholder="Escriu el nom del director">
-    <input type="submit" value="Cercar">
-</form>
+<div class="container">
+    <h1>Cerca pel·lícules:</h1>
+
+    <p th:if="${loggedInUser != null}">
+        Benvingut, <span th:text="${loggedInUser}"></span>!
+       <a href="/logout">Tancar sessió</a>
+    </p>
+    <p th:if="${loggedInUser == null}">
+        <a href="/login">Inicia sessió</a>
+    </p>
+
+    <form action="/MovieSearchTitle" method="get">
+        <h4>Per Títol</h4>
+        <input type="text" name="movie" placeholder="Escriu el títol">
+        <input type="submit" value="Cercar">
+    </form>
+
+    <form action="/MovieSearchCast" method="get">
+        <h4>Per Actor</h4>
+        <input type="text" name="actor" placeholder="Escriu el nom del actor">
+        <input type="submit" value="Cercar">
+    </form>
+
+    <form action="/MovieSearchCharacter" method="get">
+        <h4>Per Personatges</h4>
+        <input type="text" name="character" placeholder="Escriu el nom del personatge">
+        <input type="submit" value="Cercar">
+    </form>
+
+    <form action="/MovieSearchDirector" method="get">
+        <h4>Per Director</h4>
+        <input type="text" name="director" placeholder="Escriu el nom del director">
+        <input type="submit" value="Cercar">
+    </form>
+</div>
 </body>
 </html>

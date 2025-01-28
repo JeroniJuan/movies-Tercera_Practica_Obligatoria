@@ -26,6 +26,15 @@ public class User {
     @Column(name = "role")
     String role;
 
+    public User(String username, String password, String mail) {
+        this.userName = username;
+        this.userPassword = password;
+        this.mail = mail;
+    }
+
+    public User() {
+    }
+
     public int getId() {
         return id;
     }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ca" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Pel·lícula</title>
+    <link rel="stylesheet" href="movie-details.css">
+</head>
+<body>
+<h1>Editar Pel·lícula: <span th:text="${movie.title}"></span></h1>
+
+<form th:action="@{/movie}" th:object="${movie}" method="post">
+    <div>
+        <label for="title">Títol</label>
+        <input type="text" th:field="*{title}" id="title" required />
+    </div>
+    <div>
+        <label for="budget">Pressupost</label>
+        <input type="number" th:field="*{budget}" id="budget" required />
+    </div>
+    <div>
+        <label for="homepage">Pàgina web</label>
+        <input type="text" th:field="*{homepage}" id="homepage" />
+    </div>
+    <div>
+        <label for="overview">Descripció</label>
+        <textarea th:field="*{overview}" id="overview"></textarea>
+    </div>
+    <div>
+        <label for="release_date"></label>
+        <input type="date" th:field="*{release_date}" id="release_date" />
+    </div>
+    <div>
+        <label for="revenue">Ingressos</label>
+        <input type="number" th:field="*{revenue}" id="revenue" />
+    </div>
+    <div>
+        <label for="runtime">Durada</label>
+        <input type="number" th:field="*{runtime}" id="runtime" />
+    </div>
+    <div>
+        <label for="movie_status">Estat</label>
+        <input type="text" th:field="*{movie_status}" id="movie_status" />
+    </div>
+    <div>
+        <label for="tagline">Lema</label>
+        <input type="text" th:field="*{tagline}" id="tagline" />
+    </div>
+    <div>
+        <label for="vote_average">Promig de vots</label>
+        <input type="number" step="0.01" th:field="*{vote_average}" id="vote_average" />
+    </div>
+    <div>
+        <label for="vote_count">Quantitat de vots</label>
+        <input type="number" th:field="*{vote_count}" id="vote_count" />
+    </div>
+
+    <h2>Repartiment de la Pel·lícula</h2>
+    <div th:each="cast : ${movie.movieCasts}">
+        <div>
+            <label for="characterName">Personatge</label>
+            <input type="text" th:field="*{movieCasts[__${castStat.index}__].characterName}" id="characterName" />
+        </div>
+        <div>
+            <label for="cast_order">Ordre de repartiment</label>
+            <input type="number" th:field="*{movieCasts[__${castStat.index}__].cast_order}" id="cast_order" />
+        </div>
+    </div>
+
+    <button type="submit">Desar canvis</button>
+</form>
+</body>
+</html>

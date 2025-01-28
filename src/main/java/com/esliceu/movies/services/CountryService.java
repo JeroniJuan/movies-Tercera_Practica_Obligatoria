@@ -21,7 +21,7 @@ public class CountryService {
     }
 
     public Country findById(int id) {
-        return CountryRepo.findByCountryId(id);
+        return CountryRepo.findById(id);
     }
 
     public Country save(Country country) {

@@ -1,7 +1,7 @@
 package com.esliceu.movies.services;
 
 import com.esliceu.movies.models.Production_Company;
-import com.esliceu.movies.repos.Production_CompanyRepo;
+import com.esliceu.movies.repos.ProductionCompanyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

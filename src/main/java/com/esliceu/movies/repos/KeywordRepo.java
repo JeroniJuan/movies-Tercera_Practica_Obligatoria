@@ -8,5 +8,5 @@ import java.util.List;
 public interface KeywordRepo extends JpaRepository<Keyword, Integer> {
     List<Keyword> findAll();
 
-    Keyword findByKeywordId(int id);
+    Keyword findById(int id);
 }
