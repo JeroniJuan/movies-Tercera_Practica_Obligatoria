@@ -37,7 +37,7 @@ public class UserController {
 
             userService.save(user);
 
-            return "index";
+            return "redirect:/";
         } catch (NoSuchAlgorithmException e) {
             return "register";
         } catch (Exception e) {
@@ -65,6 +65,4 @@ public class UserController {
         session.invalidate();
         return "redirect:/";
     }
-
-
 }

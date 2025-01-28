@@ -38,32 +38,39 @@ public class MovieController {
 
     @PostMapping("/movie")
     public String updateMovie(@RequestParam int id, @RequestParam(required = false) String title,
-                              @RequestParam(required = false) String description, @RequestParam(required = false) String genre,
+                              @RequestParam(required = false) String description,
                               @RequestParam(required = false) String action, HttpSession session, Model model) {
         Movie movie = movieService.findById(id);
 
         if (movie == null) {
-            return "movie-details";
+            return "redirect:/";
         }
 
         String loggedInUser = (String) session.getAttribute("loggedInUser");
         if (loggedInUser == null) {
+            System.out.println("No user");
             return "redirect:/login";
         }
 
         boolean canModify = permissionService.isUserAuthorized(loggedInUser, Permission.permission_name.modify_movie);
         if (!canModify) {
-            return "movie-details";
+            System.out.println("No pots modificar");
+            return "redirect:/";
         }
 
-        if ("update".equals(action)) {
-            movie.setTitle(title);
-            movie.setOverview(description);
-            movieService.save(movie);
-        } else if ("delete".equals(action)) {
+        if ("delete".equals(action)) {
             movieService.deleteById(id);
+            return "redirect:/";
         }
 
-        return "movie-details";
+        movie.setTitle(title);
+        movie.setOverview(description);
+        System.out.println("Actualitzant pelicula");
+        movieService.save(movie);
+
+
+
+
+        return "redirect:/";
     }
 }

@@ -9,6 +9,7 @@
 <h1>Editar Pel·lícula: <span th:text="${movie.title}"></span></h1>
 
 <form th:action="@{/movie}" th:object="${movie}" method="post">
+    <input type="hidden" th:value="${movie.id}" id="id" name="id">
     <div>
         <label for="title">Títol</label>
         <input type="text" th:field="*{title}" id="title" required />
@@ -54,7 +55,7 @@
         <input type="number" th:field="*{vote_count}" id="vote_count" />
     </div>
 
-    <h2>Repartiment de la Pel·lícula</h2>
+    <!-- <h2>Repartiment de la Pel·lícula</h2>
     <div th:each="cast : ${movie.movieCasts}">
         <div>
             <label for="characterName">Personatge</label>
@@ -64,7 +65,7 @@
             <label for="cast_order">Ordre de repartiment</label>
             <input type="number" th:field="*{movieCasts[__${castStat.index}__].cast_order}" id="cast_order" />
         </div>
-    </div>
+    </div> -->
 
     <button type="submit">Desar canvis</button>
 </form>
