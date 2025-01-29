@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalls de la Persona</title>
+</head>
+<body>
+<h1>Detalls de la Persona</h1>
+
+<form action="/person/edit" method="post">
+    <input type="hidden" name="id" th:value="${person.id}" />
+    <label for="personName">Nom de la Persona:</label>
+    <input type="text" id="personName" name="personName" th:value="${person.personName}" required>
+    <button type="submit">Guardar</button>
+</form>
+
+<hr>
+
+<br>
+<a href="/person">Tornar a la llista</a>
+</body>
+</html>

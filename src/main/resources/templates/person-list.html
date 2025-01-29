@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llista de Persones</title>
+</head>
+<body>
+<h1>Llista de Persones</h1>
+
+<form action="/person-create" method="get">
+    <button type="submit">Crear una Nova Persona</button>
+</form>
+
+<form action="/person/search" method="get">
+    <input type="text" name="personName" placeholder="Escriu el nom de la persona" required>
+    <button type="submit">Buscar</button>
+</form>
+
+<ul>
+    <th:block th:each="person : ${persons}">
+        <li>
+            <span th:text="${person.personName}"></span>
+            <a th:href="@{/person/search(personName=${person.personName})}">Veure / Editar</a> |
+            <a th:href="@{/person/delete/{id}(id=${person.id})}">Eliminar</a>
+        </li>
+    </th:block>
+</ul>
+</body>
+</html>
