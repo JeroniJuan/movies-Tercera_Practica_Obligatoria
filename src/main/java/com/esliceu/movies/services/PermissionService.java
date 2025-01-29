@@ -18,9 +18,9 @@ public class PermissionService {
     @Autowired
     UserService userService;
 
-    public boolean isUserAuthorized(String username, Permission.permission_name permissionName) {
+    public boolean isUserAuthorized(int id, Permission.permission_name permissionName) {
         Permission permission = permissionRepo.findByPermissionName(permissionName);
-    User user = userService.findByUserName(username);
+    User user = userService.findById(id);
 
         if (permission == null) {
             return false;

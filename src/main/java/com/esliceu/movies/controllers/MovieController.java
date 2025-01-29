@@ -3,7 +3,6 @@ package com.esliceu.movies.controllers;
 import com.esliceu.movies.models.Movie;
 import com.esliceu.movies.services.MovieService;
 import com.esliceu.movies.services.PermissionService;
-import com.esliceu.movies.models.User;
 import com.esliceu.movies.models.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +25,8 @@ public class MovieController {
         Movie movie = movieService.findById(id);
         model.addAttribute("movie", movie);
 
-        String loggedInUser = (String) session.getAttribute("loggedInUser");
-        if (loggedInUser != null) {
+        Integer loggedInUser = (Integer) session.getAttribute("loggedInUserId");
+        if (loggedInUser == null) {
             boolean canModify = permissionService.isUserAuthorized(loggedInUser, Permission.permission_name.modify_movie);
             model.addAttribute("canModify", canModify);
             return "movie-details";
@@ -46,13 +45,13 @@ public class MovieController {
             return "redirect:/";
         }
 
-        String loggedInUser = (String) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
+        Integer userId = (Integer) session.getAttribute("loggedInUserId");
+        if (userId == null) {
             System.out.println("No user");
             return "redirect:/login";
         }
 
-        boolean canModify = permissionService.isUserAuthorized(loggedInUser, Permission.permission_name.modify_movie);
+        boolean canModify = permissionService.isUserAuthorized(userId, Permission.permission_name.modify_movie);
         if (!canModify) {
             System.out.println("No pots modificar");
             return "redirect:/";
@@ -72,8 +71,11 @@ public class MovieController {
     }
 
     @GetMapping("/delMovie")
-    public String deleteMovie(@RequestParam int id){
-        movieService.deleteById(id);
+    public String deleteMovie(@RequestParam int id, HttpSession session){
+        int userId = (int) session.getAttribute("loggedInUserId");
+        if (permissionService.isUserAuthorized(userId, Permission.permission_name.remove_movie)){
+            movieService.deleteById(id);
+        }
         return "redirect:/";
     }
 }

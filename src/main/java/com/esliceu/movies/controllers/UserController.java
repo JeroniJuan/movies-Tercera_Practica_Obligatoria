@@ -54,6 +54,7 @@ public class UserController {
 
         if (user != null && userService.checkPassword(user, password)) {
             session.setAttribute("loggedInUser", user.getUserName());
+            session.setAttribute("loggedInUserId", user.getId());
             return "redirect:/";
         } else {
             return "login";

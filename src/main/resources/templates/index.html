@@ -13,6 +13,7 @@
     <p th:if="${loggedInUser != null}">
         Benvingut, <span th:text="${loggedInUser}"></span>!
        <a href="/logout">Tancar sessió</a>
+        <a href="/request">Solicitar permisos</a>
     </p>
     <p th:if="${loggedInUser == null}">
         <a href="/login">Inicia sessió</a>

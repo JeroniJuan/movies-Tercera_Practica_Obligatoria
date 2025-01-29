@@ -10,7 +10,7 @@
     <ol>
         <li th:each="movie : ${movies}">
             <a th:href="@{/movie(id=${movie.movie_id})}">[[${movie.title}]]</a>
-            <a th:href="@{/delMovie(id=${movie.movie_id})"}>Borrar pelicula</a>
+            <!--<a th:href="@{/delMovie(id=${movie.movie_id})"}>Borrar pelicula</a>-->
         </li>
     </ol>
 </body>

@@ -6,6 +6,7 @@ import com.esliceu.movies.models.User;
 import com.esliceu.movies.services.AutoritzationService;
 import com.esliceu.movies.services.PermissionService;
 import com.esliceu.movies.services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,8 @@ public class PermissionController {
     private UserService userService; // Para obtener el usuario actual.
 
     @GetMapping("/request")
-    public String requestPermissionForm(Model model) {
+    public String requestPermissionForm(Model model, HttpSession session) {
+        model.addAttribute("userId",session.getAttribute("loggedInUserId"));
         model.addAttribute("permissions", permissionService.findAll());
         return "request-permission";
     }
