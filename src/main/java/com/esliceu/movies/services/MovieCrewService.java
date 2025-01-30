@@ -37,4 +37,8 @@ public class MovieCrewService {
 
         return directors;
     }
+
+    public List<Movie_Crew> findByMovieId(int id) {
+        return  movieCrewRepo.findByMovieId(id);
+    }
 }

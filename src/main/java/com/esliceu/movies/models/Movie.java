@@ -20,7 +20,7 @@ public class Movie {
     private List<Movie_Crew> movieCrews;
 
     @OneToMany(mappedBy = "movie")
-    private List<Movie_Genre> movieGenres;
+    private List<Movie_Genres> movieGenres;
 
     @Column(length = 1000)
     private String title;

@@ -9,8 +9,8 @@ public class Gender {
     @Column(name = "gender_id")
     private int id;
 
-    @Column(length = 20)
-    private String gender;
+    @Column(length = 20, name = "gender")
+    private String genderName;
 
     public int getId() {
         return id;
@@ -20,11 +20,11 @@ public class Gender {
         this.id = id;
     }
 
-    public String getGender() {
-        return gender;
+    public String getGenderName() {
+        return genderName;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setGenderName(String genderName) {
+        this.genderName = genderName;
     }
 }

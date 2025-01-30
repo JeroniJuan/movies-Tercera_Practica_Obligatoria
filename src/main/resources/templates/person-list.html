@@ -13,7 +13,7 @@
     <button type="submit">Crear una Nova Persona</button>
 </form>
 
-<form action="/search" method="get">
+<form action="/searchPerson" method="get">
     <input type="text" name="personName" placeholder="Escriu el nom de la persona" required>
     <button type="submit">Buscar</button>
 </form>
@@ -29,13 +29,17 @@
         <tr>
             <td><span th:text="${person.personName}"></span></td>
             <td>
-                <a th:href="@{/editPerson(personName=${person.personName})}">Veure / Editar</a> |
+                <a th:href="@{/searchPerson(personName=${person.personName})}">Veure / Editar</a> |
                 <a th:href="@{/deletePerson/{id}(id=${person.id})}">Eliminar</a>
             </td>
         </tr>
     </th:block>
     </tbody>
 </table>
-
+<div>
+    <a th:if="${currentPage > 0}" th:href="@{/person(page=${currentPage - 1})}">Anterior</a>
+    <span th:text="${currentPage + 1}"></span> / <span th:text="${totalPages}"></span>
+    <a th:if="${currentPage + 1 < totalPages}" th:href="@{/person(page=${currentPage + 1})}">Siguiente</a>
+</div>
 </body>
 </html>

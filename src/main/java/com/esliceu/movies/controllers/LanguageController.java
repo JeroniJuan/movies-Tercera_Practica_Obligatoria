@@ -29,12 +29,6 @@ public class LanguageController {
     public String searchLanguage(@RequestParam String languageName, Model model) {
         Language language = languageService.findByName(languageName);
 
-        if (language == null) {
-            language = new Language();
-            language.setLanguageName(languageName);
-            languageService.save(language);
-        }
-
         model.addAttribute("language", language);
         return "language-detail.html";
     }

@@ -31,7 +31,7 @@ public class SearchController {
     public String getMovieSearchTitle(Model model, @RequestParam("movie") String movieTitle){
         List<Movie> movieList = movieService.findMovieByTitle(movieTitle);
         model.addAttribute("movies", movieList);
-        return "MovieSearch";
+        return "movie-list";
     }
 
     @GetMapping("/MovieSearchCast")
@@ -39,13 +39,13 @@ public class SearchController {
         int actor_id = movieCastService.getActorId(ActorName);
         List<Movie> movieList = movieService.findMoviesByCast(actor_id);
         model.addAttribute("movies", movieList);
-        return "MovieSearch";
+        return "movie-list";
     }
     @GetMapping("/MovieSearchCharacter")
     public String getMovieSearchCharacter(Model model, @RequestParam("character") String character_name){
         List<Movie> movieList = movieService.findMoviesByCharacter(character_name);
         model.addAttribute("movies", movieList);
-        return "MovieSearch";
+        return "movie-list";
     }
 
     @GetMapping("/MovieSearchDirector")
@@ -65,7 +65,7 @@ public class SearchController {
 
         model.addAttribute("movies", movieListDirector);
 
-        return "MovieSearch";
+        return "movie-list";
     }
 
 

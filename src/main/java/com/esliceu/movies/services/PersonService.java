@@ -3,6 +3,8 @@ package com.esliceu.movies.services;
 import com.esliceu.movies.models.Person;
 import com.esliceu.movies.repos.PersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,9 @@ public class PersonService {
         return personRepo.findAll();
     }
 
+    public Page<Person> findAll(Pageable pageable) {
+        return personRepo.findAll(pageable);
+    }
     public Person findById(int id) {
         return personRepo.findById(id).orElse(null);
     }

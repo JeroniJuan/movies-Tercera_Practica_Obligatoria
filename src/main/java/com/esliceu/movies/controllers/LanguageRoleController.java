@@ -29,11 +29,6 @@ public class LanguageRoleController {
     public String searchLanguageRole(@RequestParam String roleName, Model model) {
         Language_Role languageRole = languageRoleService.findByName(roleName);
 
-        if (languageRole == null) {
-            languageRole = new Language_Role();
-            languageRole.setLanguageRole(roleName);
-            languageRoleService.save(languageRole);
-        }
 
         model.addAttribute("languageRole", languageRole);
         return "languageRole-detail";

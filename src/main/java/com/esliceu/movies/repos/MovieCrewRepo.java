@@ -10,4 +10,6 @@ public interface MovieCrewRepo extends JpaRepository<Movie_Crew, Long> {
     List<Movie_Crew> findByPersonPersonName(String personName);
 
     List<Movie_Crew> findByPersonId(int personId);
+
+    List<Movie_Crew> findByMovieId(int id);
 }

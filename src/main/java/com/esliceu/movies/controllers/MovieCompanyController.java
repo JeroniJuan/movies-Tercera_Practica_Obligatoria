@@ -13,14 +13,12 @@ public class MovieCompanyController {
     @Autowired
     private MovieCompanyService movieCompanyService;
 
-    // Mostrar lista de Movie_Company
     @GetMapping("/movieCompany")
     public String listMovieCompanies(Model model) {
         model.addAttribute("movieCompanies", movieCompanyService.findAll());
         return "movieCompany-list";
     }
 
-    // Mostrar detalles de Movie_Company
     @GetMapping("/movieCompany/{movieId}/{companyId}")
     public String showMovieCompanyDetails(@PathVariable int movieId, @PathVariable int companyId, Model model) {
         Movie_Company movieCompany = movieCompanyService.findById(movieId, companyId);

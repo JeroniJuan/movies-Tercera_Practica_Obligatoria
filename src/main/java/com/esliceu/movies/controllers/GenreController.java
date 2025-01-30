@@ -29,12 +29,6 @@ public class GenreController {
     public String searchGenre(@RequestParam String genreName, Model model) {
         Genre genre = genreService.findByName(genreName);
 
-        if (genre == null) {
-            genre = new Genre();
-            genre.setGenreName(genreName);
-            genreService.save(genre);
-        }
-
         model.addAttribute("genre", genre);
         return "genre-detail";
     }

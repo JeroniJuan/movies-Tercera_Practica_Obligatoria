@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llista de Rols d'Idioma</title>
+    <link rel="stylesheet" href="/list.css">
+</head>
+<body>
+<h1>Llista de Rols d'Idioma</h1>
+
+<a href="/crud">Retrorna a la gestio de dades.</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nom del Rol</th>
+        <th>Accions</th>
+    </tr>
+    <tr th:each="languageRole : ${languageRoles}">
+        <td th:text="${languageRole.id}"></td>
+        <td th:text="${languageRole.languageRole}"></td>
+        <td>
+            <a th:href="@{/searchLanguageRole(roleName=${languageRole.languageRole})}">Veure</a>
+            <a th:href="@{/deleteLanguageRole/{id}(id=${languageRole.id})}">Eliminar</a>
+        </td>
+    </tr>
+</table>
+
+<br>
+<a href="/createLanguageRole">Crear un nou rol</a>
+</body>
+</html>

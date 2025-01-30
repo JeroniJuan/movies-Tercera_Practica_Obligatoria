@@ -5,7 +5,7 @@ import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class Movie_GenreKey implements Serializable {
+public class Movie_GenresKey implements Serializable {
     private int movie_id;
     private int genre_id;
 

@@ -36,4 +36,8 @@ public class MovieCompanyService {
         Movie_CompanyKey key = new Movie_CompanyKey(movieId, companyId);
         return movieCompanyRepo.findById(key).orElse(null);
     }
+
+    public List<Movie_Company> findByMovieId(int id) {
+        return movieCompanyRepo.findByMovieId(id);
+    }
 }

@@ -1,15 +1,15 @@
 package com.esliceu.movies.controllers;
 
-import com.esliceu.movies.models.Movie;
-import com.esliceu.movies.services.MovieService;
-import com.esliceu.movies.services.PermissionService;
-import com.esliceu.movies.models.Permission;
+import com.esliceu.movies.models.*;
+import com.esliceu.movies.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpSession;
+
+import java.util.List;
 
 @Controller
 public class MovieController {
@@ -20,19 +20,40 @@ public class MovieController {
     @Autowired
     PermissionService permissionService;
 
+    @Autowired
+    ProductionCountryService productionCountryService;
+
+    @Autowired
+    MovieLanguagesService movieLanguagesService;
+
+    @Autowired
+    MovieGenreService movieGenreService;
+
+    @Autowired
+    MovieKeywordService movieKeywordService;
+
+    @Autowired
+    MovieCompanyService movieCompanyService;
+
+    @Autowired
+    MovieCastService movieCastService;
+
+    @Autowired
+    MovieCrewService movieCrewService;
+
     @GetMapping("/movie")
     public String getMovieDetails(@RequestParam int id, Model model, HttpSession session) {
         Movie movie = movieService.findById(id);
+        List<Production_Country> productionCountries = productionCountryService.findByMovieId(id);
+        List<Movie_Languages> movieLanguages = movieLanguagesService.findByMovieId(id);
+        List<Movie_Genres> movieGenres = movieGenreService.findByMovieId(id);
+        List<Movie_Keywords> movieKeywords = movieKeywordService.findByMovieId(id);
+        List<Movie_Company> movieCompanies = movieCompanyService.findByMovieId(id);
+        List<Movie_Cast> movieCasts = movieCastService.findByMovieId(id);
+        List<Movie_Crew> movieCrews = movieCrewService.findByMovieId(id);
         model.addAttribute("movie", movie);
 
-        Integer loggedInUser = (Integer) session.getAttribute("loggedInUserId");
-        if (loggedInUser == null) {
-            boolean canModify = permissionService.isUserAuthorized(loggedInUser, Permission.permission_name.modify_movie);
-            model.addAttribute("canModify", canModify);
-            return "movie-details";
-        }
-
-        return "redirect:/";
+        return "movie-details";
     }
 
     @PostMapping("/movie")

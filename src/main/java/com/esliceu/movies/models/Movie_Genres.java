@@ -3,9 +3,9 @@ package com.esliceu.movies.models;
 import jakarta.persistence.*;
 
 @Entity
-public class Movie_Genre {
+public class Movie_Genres {
     @EmbeddedId
-    private Movie_GenreKey id;
+    private Movie_GenresKey id;
 
     @ManyToOne
     @MapsId("movie_id")
@@ -17,11 +17,11 @@ public class Movie_Genre {
     @JoinColumn(name = "genre_id")
     private Genre genre;
 
-    public Movie_GenreKey getId() {
+    public Movie_GenresKey getId() {
         return id;
     }
 
-    public void setId(Movie_GenreKey id) {
+    public void setId(Movie_GenresKey id) {
         this.id = id;
     }
 

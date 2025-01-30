@@ -12,6 +12,13 @@ public class Genre {
     @Column(length = 100, name = "genre_name")
     private String genreName;
 
+    public Genre() {
+    }
+
+    public Genre(String genreName) {
+        this.genreName = genreName;
+    }
+
     public int getId() {
         return id;
     }

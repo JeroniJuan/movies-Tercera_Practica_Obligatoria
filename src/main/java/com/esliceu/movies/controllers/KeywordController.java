@@ -29,12 +29,6 @@ public class KeywordController {
     public String searchKeyword(@RequestParam String keywordName, Model model) {
         Keyword keyword = keywordService.findByName(keywordName);
 
-        if (keyword == null) {
-            keyword = new Keyword();
-            keyword.setKeywordName(keywordName);
-            keywordService.save(keyword);
-        }
-
         model.addAttribute("keyword", keyword);
         return "keyword-detail";
     }

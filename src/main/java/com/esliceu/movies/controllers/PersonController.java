@@ -1,11 +1,13 @@
 package com.esliceu.movies.controllers;
 
 import com.esliceu.movies.models.Permission;
+import org.springframework.data.domain.Pageable;
 import com.esliceu.movies.models.Person;
 import com.esliceu.movies.services.PermissionService;
 import com.esliceu.movies.services.PersonService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +22,12 @@ public class PersonController {
     private PermissionService permissionService;
 
     @GetMapping("/person")
-    public String listPersons(Model model) {
+    public String listPersons(Model model, Pageable pageable) {
         model.addAttribute("persons", personService.findAll());
+        Page<Person> personsPage = personService.findAll(pageable);
+        model.addAttribute("persons", personsPage.getContent());
+        model.addAttribute("currentPage", personsPage.getNumber());
+        model.addAttribute("totalPages", personsPage.getTotalPages());
         return "person-list";
     }
 
@@ -30,9 +36,7 @@ public class PersonController {
         Person person = personService.findPersonByName(personName);
 
         if (person == null) {
-            person = new Person();
-            person.setPersonName(personName);
-            personService.save(person);
+            return "redirect:/person";
         }
 
         model.addAttribute("person", person);

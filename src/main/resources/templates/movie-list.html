@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Search</title>
+    <link rel="stylesheet" href="/list.css">
+</head>
+<body>
+<h1>Llistat de pel·lícules</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Títol</th>
+        <th>Accions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="movie : ${movies}">
+        <td>
+            <a class="movieTitle" th:href="@{/movie(id=${movie.movie_id})}">[[${movie.title}]]</a>
+        </td>
+        <td>
+            <form th:action="@{/delMovie}" method="post">
+                <input type="hidden" name="id" th:value="${movie.movie_id}" />
+                <button class="deleteBtn" type="submit">Borrar pel·lícula</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

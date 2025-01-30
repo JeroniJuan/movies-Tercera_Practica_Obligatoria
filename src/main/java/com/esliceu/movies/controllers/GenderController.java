@@ -1,7 +1,10 @@
 package com.esliceu.movies.controllers;
 
 import com.esliceu.movies.models.Gender;
+import com.esliceu.movies.models.Permission;
 import com.esliceu.movies.services.GenderService;
+import com.esliceu.movies.services.PermissionService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,9 @@ public class GenderController {
 
     @Autowired
     private GenderService genderService;
+
+    @Autowired
+    private PermissionService permissionService;
 
     @GetMapping("/gender")
     public String listGenders(Model model) {
@@ -25,8 +31,10 @@ public class GenderController {
     }
 
     @PostMapping("/createGender")
-    public String createGender(@ModelAttribute Gender gender) {
-        genderService.save(gender);
+    public String createGender(@ModelAttribute Gender gender, HttpSession session) {
+        int userId = (int) session.getAttribute("loggedInUserId");
+        boolean canCreate = permissionService.isUserAuthorized(userId, Permission.permission_name.upload_movie);
+        if (canCreate) genderService.save(gender);
         return "redirect:/gender";
     }
 
@@ -38,8 +46,10 @@ public class GenderController {
     }
 
     @PostMapping("/editGender")
-    public String editGender(@ModelAttribute Gender gender) {
-        genderService.save(gender);
+    public String editGender(@ModelAttribute Gender gender, HttpSession session) {
+        int userId = (int) session.getAttribute("loggedInUserId");
+        boolean canModify = permissionService.isUserAuthorized(userId, Permission.permission_name.modify_movie);
+        if (canModify) genderService.save(gender);
         return "redirect:/gender";
     }
 

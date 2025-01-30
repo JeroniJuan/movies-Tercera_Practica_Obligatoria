@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalls del Rol d'Idioma</title>
+    <link rel="stylesheet" href="/detail-page.css">
+</head>
+<body>
+<h1>Detalls del Rol d'Idioma</h1>
+
+<form action="/editLanguageRole" method="post">
+    <input type="hidden" name="id" th:value="${languageRole.id}" />
+
+    <label for="roleName">Nom del Rol:</label>
+    <input type="text" id="roleName" name="languageRole" th:value="${languageRole.languageRole}" required>
+
+    <button type="submit">Guardar</button>
+    <a th:href="@{/deleteLanguageRole/{id}(id=${languageRole.id})}">Eliminar</a>
+</form>
+
+<hr>
+
+<br>
+<a href="/languageRole">Tornar a la llista</a>
+</body>
+</html>
