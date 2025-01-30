@@ -9,11 +9,11 @@ public class Country {
     @Column(name = "country_id")
     private int id;
 
-    @Column(length = 10)
-    private String country_iso_code;
+    @Column(length = 10, name = "country_iso_code")
+    private String countryIsoCode;
 
-    @Column(length = 200)
-    private String country_name;
+    @Column(length = 200, name = "country_name")
+    private String countryName;
 
     public int getId() {
         return id;
@@ -23,19 +23,19 @@ public class Country {
         this.id = id;
     }
 
-    public String getCountry_iso_code() {
-        return country_iso_code;
+    public String getCountryIsoCode() {
+        return countryIsoCode;
     }
 
-    public void setCountry_iso_code(String country_iso_code) {
-        this.country_iso_code = country_iso_code;
+    public void setCountryIsoCode(String countryIsoCode) {
+        this.countryIsoCode = countryIsoCode;
     }
 
-    public String getCountry_name() {
-        return country_name;
+    public String getCountryName() {
+        return countryName;
     }
 
-    public void setCountry_name(String country_name) {
-        this.country_name = country_name;
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 }

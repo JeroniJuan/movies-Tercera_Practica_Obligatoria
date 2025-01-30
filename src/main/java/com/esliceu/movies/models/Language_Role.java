@@ -9,8 +9,8 @@ public class Language_Role {
     @Column(name = "role_id")
     private int id;
 
-    @Column(length = 20)
-    private String language_role;
+    @Column(length = 20, name = "language_role")
+    private String languageRole;
 
     public int getId() {
         return id;
@@ -20,11 +20,11 @@ public class Language_Role {
         this.id = id;
     }
 
-    public String getLanguage_role() {
-        return language_role;
+    public String getLanguageRole() {
+        return languageRole;
     }
 
-    public void setLanguage_role(String language_role) {
-        this.language_role = language_role;
+    public void setLanguageRole(String languageRole) {
+        this.languageRole = languageRole;
     }
 }

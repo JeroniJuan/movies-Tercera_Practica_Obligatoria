@@ -27,4 +27,8 @@ public class KeywordService {
     public void deleteById(int id) {
         keywordRepo.deleteById(id);
     }
+
+    public Keyword findByName(String keywordName) {
+        return keywordRepo.findByKeywordName(keywordName);
+    }
 }

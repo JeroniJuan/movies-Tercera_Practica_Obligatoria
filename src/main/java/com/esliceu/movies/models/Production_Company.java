@@ -9,8 +9,8 @@ public class Production_Company {
     @Column(name = "company_id")
     private int id;
 
-    @Column(length = 200)
-    private String company_name;
+    @Column(length = 200, name = "company_name")
+    private String companyName;
 
     public int getId() {
         return id;
@@ -20,11 +20,11 @@ public class Production_Company {
         this.id = id;
     }
 
-    public String getCompany_name() {
-        return company_name;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompany_name(String company_name) {
-        this.company_name = company_name;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

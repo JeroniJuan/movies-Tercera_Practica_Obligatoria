@@ -10,25 +10,29 @@ import java.util.List;
 @Service
 public class CountryService {
     @Autowired
-    CountryRepo CountryRepo;
+    CountryRepo countryRepo;
 
     public CountryService(CountryRepo CountryRepo) {
-        this.CountryRepo = CountryRepo;
+        this.countryRepo = CountryRepo;
     }
 
     public List<Country> findAll() {
-        return CountryRepo.findAll();
+        return countryRepo.findAll();
     }
 
     public Country findById(int id) {
-        return CountryRepo.findById(id);
+        return countryRepo.findById(id);
     }
 
     public Country save(Country country) {
-        return CountryRepo.save(country);
+        return countryRepo.save(country);
     }
 
     public void deleteById(int id) {
-        CountryRepo.deleteById(id);
+        countryRepo.deleteById(id);
+    }
+
+    public Country findByName(String countryName) {
+        return countryRepo.findByCountryName(countryName);
     }
 }

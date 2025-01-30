@@ -31,4 +31,8 @@ public class LanguageService {
     public void deleteById(int id) {
         languageRepo.deleteById(id);
     }
+
+    public Language findByName(String languageName) {
+        return languageRepo.findByLanguageName(languageName);
+    }
 }

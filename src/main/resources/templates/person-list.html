@@ -4,27 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Llista de Persones</title>
+    <link rel="stylesheet" href="/list.css">
 </head>
 <body>
 <h1>Llista de Persones</h1>
-
-<form action="/person-create" method="get">
+<a href="/crud">Retorna a la gestio de dades</a>
+<form action="/createPerson" method="get">
     <button type="submit">Crear una Nova Persona</button>
 </form>
 
-<form action="/person/search" method="get">
+<form action="/search" method="get">
     <input type="text" name="personName" placeholder="Escriu el nom de la persona" required>
     <button type="submit">Buscar</button>
 </form>
-
-<ul>
+<table>
+    <thead>
+    <tr>
+        <th>Persona</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
     <th:block th:each="person : ${persons}">
-        <li>
-            <span th:text="${person.personName}"></span>
-            <a th:href="@{/person/search(personName=${person.personName})}">Veure / Editar</a> |
-            <a th:href="@{/person/delete/{id}(id=${person.id})}">Eliminar</a>
-        </li>
+        <tr>
+            <td><span th:text="${person.personName}"></span></td>
+            <td>
+                <a th:href="@{/editPerson(personName=${person.personName})}">Veure / Editar</a> |
+                <a th:href="@{/deletePerson/{id}(id=${person.id})}">Eliminar</a>
+            </td>
+        </tr>
     </th:block>
-</ul>
+    </tbody>
+</table>
+
 </body>
 </html>

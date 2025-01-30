@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assigna una Companyia a una Pel·lícula</title>
+    <link rel="stylesheet" href="/create.css">
+</head>
+<body>
+<h1>Assigna una Companyia a una Pel·lícula</h1>
+
+<form action="/createMovieCompany" method="post">
+    <label for="movieId">ID de la Pel·lícula:</label>
+    <input type="number" id="movieId" name="movie.id" required>
+
+    <label for="companyId">ID de la Companyia:</label>
+    <input type="number" id="companyId" name="companyId.id" required>
+
+    <button type="submit">Assignar</button>
+</form>
+
+<br>
+<a href="/movieCompany">Tornar a la llista</a>
+</body>
+</html>

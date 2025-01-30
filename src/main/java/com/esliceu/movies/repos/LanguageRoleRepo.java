@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LanguageRoleRepo extends JpaRepository<Language_Role, Integer> {
     Language_Role findById(int id);
+
+    Language_Role findByLanguageRole(String roleName);
 }

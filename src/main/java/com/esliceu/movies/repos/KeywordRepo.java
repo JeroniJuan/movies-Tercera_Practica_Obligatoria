@@ -9,4 +9,6 @@ public interface KeywordRepo extends JpaRepository<Keyword, Integer> {
     List<Keyword> findAll();
 
     Keyword findById(int id);
+
+    Keyword findByKeywordName(String keywordName);
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llista de Companyies per Pel·lícula</title>
+    <link rel="stylesheet" href="/list.css">
+</head>
+<body>
+<h1>Llista de Companyies per Pel·lícula</h1>
+<a href="/crud">Retorna a la gestio de dades</a>
+<table border="1">
+    <tr>
+        <th>ID Pel·lícula</th>
+        <th>ID Companyia</th>
+        <th>Accions</th>
+    </tr>
+    <tr th:each="movieCompany : ${movieCompanies}">
+        <td th:text="${movieCompany.movie.id}"></td>
+        <td th:text="${movieCompany.companyId.id}"></td>
+        <td>
+            <a th:href="@{/deleteMovieCompany/{movieId}/{companyId}(movieId=${movieCompany.movie.id}, companyId=${movieCompany.companyId.id})}">Eliminar</a>
+        </td>
+    </tr>
+</table>
+
+<br>
+<a href="/createMovieCompany">Assignar una nova companyia</a>
+</body>
+</html>

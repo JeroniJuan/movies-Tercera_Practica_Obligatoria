@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea un Nou Gènere</title>
+    <link rel="stylesheet" href="/create.css">
+</head>
+<body>
+<h1>Crea un Nou Gènere</h1>
+
+<form action="/createGenre" method="post">
+    <label for="genreName">Nom del Gènere:</label>
+    <input type="text" id="genreName" name="genreName" required>
+
+    <button type="submit">Crear</button>
+</form>
+
+<br>
+<a href="/genre">Tornar a la llista de gèneres</a>
+</body>
+</html>

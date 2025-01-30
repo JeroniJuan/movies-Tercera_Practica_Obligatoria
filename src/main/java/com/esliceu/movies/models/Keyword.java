@@ -9,8 +9,8 @@ public class Keyword {
     @Column(name = "keyword_id")
     private int id;
 
-    @Column(length = 100)
-    private String keyword_name;
+    @Column(length = 100, name = "keyword_name")
+    private String keywordName;
 
     public int getId() {
         return id;
@@ -20,11 +20,11 @@ public class Keyword {
         this.id = id;
     }
 
-    public String getKeyword_name() {
-        return keyword_name;
+    public String getKeywordName() {
+        return keywordName;
     }
 
-    public void setKeyword_name(String keyword_name) {
-        this.keyword_name = keyword_name;
+    public void setKeywordName(String keywordName) {
+        this.keywordName = keywordName;
     }
 }

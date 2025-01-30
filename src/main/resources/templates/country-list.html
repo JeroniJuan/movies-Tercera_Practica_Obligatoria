@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llista de Països</title>
+    <link rel="stylesheet" href="/list.css">
+</head>
+<body>
+<h1>Llista de Països</h1>
+
+<a href="/crud">Retorna a la gestio de dades</a>
+
+<form action="/createCountry" method="get">
+    <button type="submit">Crear un Nou País</button>
+</form>
+
+<form action="/searchCountry" method="get">
+    <input type="text" name="countryName" placeholder="Escriu el nom del país" required>
+    <button type="submit">Buscar</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>País</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="country : ${countries}">
+        <tr>
+            <td><span th:text="${country.countryName}"></span></td>
+            <td>
+                <a th:href="@{/searchCountry(countryName=${country.countryName})}">Veure / Editar</a> |
+                <a th:href="@{/deleteCountry/{id}(id=${country.id})}">Eliminar</a>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
+</body>
+</html>

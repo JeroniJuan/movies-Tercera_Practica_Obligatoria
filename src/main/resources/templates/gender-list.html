@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Géneros</title>
+    <link rel="stylesheet" href="/list.css">
+</head>
+<body>
+<h1>Géneros</h1>
+
+<a href="/createGender">Crear Nuevo Género</a>
+<br><br>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Género</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="gender : ${genders}">
+        <td th:text="${gender.id}"></td>
+        <td th:text="${gender.gender}"></td>
+        <td>
+            <a th:href="@{/genderDetail/{id}(id=${gender.id})}">Ver Detalles</a> |
+            <a th:href="@{/deleteGender/{id}(id=${gender.id})}">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<a href="/gender">Volver a la lista de géneros</a>
+</body>
+</html>

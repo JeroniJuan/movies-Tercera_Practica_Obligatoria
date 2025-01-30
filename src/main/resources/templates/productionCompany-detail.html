@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Compañía</title>
+    <link rel="stylesheet" href="/detail-page.css">
+</head>
+<body>
+<h1>Detalles de la Compañía</h1>
+
+<form action="/editProductionCompany" method="post">
+    <input type="hidden" name="id" th:value="${productionCompany.id}" />
+    <label for="companyName">Nombre de la Compañía:</label>
+    <input type="text" id="companyName" name="companyName" th:value="${productionCompany.companyName}" required>
+    <button type="submit">Guardar Cambios</button>
+</form>
+
+<a th:href="@{/deleteProductionCompany/{id}(id=${productionCompany.id})}">Eliminar Compañía</a>
+
+<hr>
+
+<br>
+<a href="/productionCompany">Volver a la lista de compañías</a>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea un Nou País</title>
+    <link rel="stylesheet" href="/create.css">
+
+</head>
+<body>
+<h1>Crea un Nou País</h1>
+
+<form action="/createCountry" method="post">
+    <label for="countryName">Nom del País:</label>
+    <input type="text" id="countryName" name="countryName" required>
+
+    <label for="countryISO">Codi ISO:</label>
+    <input type="text" id="countryISO" name="countryIsoCode" required>
+
+    <button type="submit">Crear</button>
+</form>
+
+<br>
+<a href="/country">Tornar a la llista de països</a>
+</body>
+</html>

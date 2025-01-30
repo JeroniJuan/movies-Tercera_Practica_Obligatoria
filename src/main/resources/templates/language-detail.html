@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalls de l'Idioma</title>
+    <link rel="stylesheet" href="/detail-page.css">
+</head>
+<body>
+<h1>Detalls de l'Idioma</h1>
+
+<form action="/editLanguage" method="post">
+    <input type="hidden" name="id" th:value="${language.id}" />
+
+    <label for="languageName">Nom de l'Idioma:</label>
+    <input type="text" id="languageName" name="language_name" th:value="${language.language_name}" required>
+
+    <label for="languageCode">Codi de l'Idioma:</label>
+    <input type="text" id="languageCode" name="language_code" th:value="${language.language_code}" required>
+
+    <button type="submit">Guardar</button>
+    <a th:href="@{/deleteLanguage/{id}(id=${language.id})}">Eliminar</a>
+</form>
+
+<hr>
+
+<br>
+<a href="/language">Tornar a la llista</a>
+</body>
+</html>

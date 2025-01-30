@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llista de Gèneres</title>
+    <link rel="stylesheet" href="/list.css">
+</head>
+<body>
+<h1>Llista de Gèneres</h1>
+<a href="/crud">Retorna a la gestio de dades</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nom del Gènere</th>
+        <th>Accions</th>
+    </tr>
+    <tr th:each="genre : ${genres}">
+        <td th:text="${genre.id}"></td>
+        <td th:text="${genre.genreName}"></td>
+        <td>
+            <a th:href="@{/searchGenre(genreName=${genre.genreName})}">Veure</a>
+            <a th:href="@{/deleteGenre/{id}(id=${genre.id})}">Eliminar</a>
+        </td>
+    </tr>
+</table>
+
+<br>
+<a href="/createGenre">Crear un nou gènere</a>
+</body>
+</html>

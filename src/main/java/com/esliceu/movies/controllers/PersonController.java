@@ -1,59 +1,70 @@
 package com.esliceu.movies.controllers;
 
+import com.esliceu.movies.models.Permission;
 import com.esliceu.movies.models.Person;
+import com.esliceu.movies.services.PermissionService;
 import com.esliceu.movies.services.PersonService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/person")
 public class PersonController {
 
     @Autowired
     private PersonService personService;
 
-    // Mostrar todos los personas
-    @GetMapping
+    @Autowired
+    private PermissionService permissionService;
+
+    @GetMapping("/person")
     public String listPersons(Model model) {
         model.addAttribute("persons", personService.findAll());
-        return "person-list";  // Este será el nombre del archivo HTML de la lista
+        return "person-list";
     }
 
-    // Ver una persona por su nombre
-    @GetMapping("/search")
+    @GetMapping("/searchPerson")
     public String searchPerson(@RequestParam String personName, Model model) {
         Person person = personService.findPersonByName(personName);
 
         if (person == null) {
             person = new Person();
             person.setPersonName(personName);
-            personService.save(person);  // Crea uno nuevo si no se encuentra
+            personService.save(person);
         }
 
         model.addAttribute("person", person);
-        return "person-detail";  // Este será el archivo HTML para mostrar y editar una persona
+        return "person-detail";
     }
 
-    // Crear una nueva persona (en la página de detalle)
-    @PostMapping("/create")
-    public String createPerson(@ModelAttribute Person person) {
-        personService.save(person);
+    @GetMapping("/createPerson")
+    public String showCreateForm() {
+        return "person-create";
+    }
+
+    @PostMapping("/createPerson")
+    public String createPerson(@ModelAttribute Person person, HttpSession session) {
+        int userId = (int) session.getAttribute("loggedInUserId");
+        boolean canCreate = permissionService.isUserAuthorized(userId, Permission.permission_name.upload_movie);
+        if (canCreate) personService.save(person);
         return "redirect:/person";
     }
 
-    // Editar una persona
-    @PostMapping("/edit")
-    public String editPerson(@ModelAttribute Person person) {
-        personService.save(person);
+    @PostMapping("/editPerson")
+    public String editPerson(@ModelAttribute Person person, HttpSession session) {
+        int userId = (int) session.getAttribute("loggedInUserId");
+        boolean canUpdate = permissionService.isUserAuthorized(userId, Permission.permission_name.modify_movie);
+        if (canUpdate) personService.save(person);
         return "redirect:/person";
     }
 
-    // Eliminar una persona
-    @GetMapping("/delete/{id}")
-    public String deletePerson(@PathVariable int id) {
-        personService.deleteById(id);
+    @GetMapping("/deletePerson/{id}")
+    public String deletePerson(@PathVariable int id, HttpSession session) {
+        int userId = (int) session.getAttribute("loggedInUserId");
+        boolean canDelete = permissionService.isUserAuthorized(userId, Permission.permission_name.remove_movie);
+        if (canDelete) personService.deleteById(id);
         return "redirect:/person";
     }
 }

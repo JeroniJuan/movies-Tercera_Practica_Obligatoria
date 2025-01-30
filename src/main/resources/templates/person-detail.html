@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalls de la Persona</title>
+    <link rel="stylesheet" href="/detail-page.css">
 </head>
 <body>
 <h1>Detalls de la Persona</h1>
 
-<form action="/person/edit" method="post">
+<form action="/editPerson" method="post">
     <input type="hidden" name="id" th:value="${person.id}" />
     <label for="personName">Nom de la Persona:</label>
     <input type="text" id="personName" name="personName" th:value="${person.personName}" required>
     <button type="submit">Guardar</button>
+    <a th:href="@{/deletePerson/{id}(id=${person.id})}">Eliminar</a>
 </form>
 
 <hr>

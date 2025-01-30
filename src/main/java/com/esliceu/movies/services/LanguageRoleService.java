@@ -31,4 +31,8 @@ public class LanguageRoleService {
     public void deleteById(int id) {
         languageRoleRepo.deleteById(id);
     }
+
+    public Language_Role findByName(String roleName) {
+        return languageRoleRepo.findByLanguageRole(roleName);
+    }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalls del País</title>
+    <link rel="stylesheet" href="/detail-page.css">
+
+</head>
+<body>
+<h1>Detalls del País</h1>
+
+<form action="/editCountry" method="post">
+    <input type="hidden" name="id" th:value="${country.id}" />
+    <label for="countryName">Nom del País:</label>
+    <input type="text" id="countryName" name="countryName" th:value="${country.countryName}" required>
+
+    <label for="countryISO">Codi ISO:</label>
+    <input type="text" id="countryISO" name="countryIsoCode" th:value="${country.countryIsoCode}" required>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<hr>
+
+<br>
+<a href="/country">Tornar a la llista</a>
+</body>
+</html>

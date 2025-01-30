@@ -27,4 +27,9 @@ public class GenreService {
     public void deleteById(int id) {
         genreRepo.deleteById(id);
     }
+
+
+    public Genre findByName(String genreName) {
+        return genreRepo.findByGenreName(genreName);
+    }
 }

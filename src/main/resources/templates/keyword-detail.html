@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalls de la Paraula Clau</title>
+    <link rel="stylesheet" href="/detail-page.css">
+</head>
+<body>
+<h1>Detalls de la Paraula Clau</h1>
+
+<form action="/editKeyword" method="post">
+    <input type="hidden" name="id" th:value="${keyword.id}" />
+
+    <label for="keywordName">Nom de la Paraula Clau:</label>
+    <input type="text" id="keywordName" name="keywordName" th:value="${keyword.keywordName}" required>
+
+    <button type="submit">Guardar</button>
+    <a th:href="@{/deleteKeyword/{id}(id=${keyword.id})}">Eliminar</a>
+</form>
+
+<hr>
+
+<br>
+<a href="/keyword">Tornar a la llista</a>
+</body>
+</html>

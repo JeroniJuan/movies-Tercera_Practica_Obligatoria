@@ -28,4 +28,12 @@ public class MovieCompanyService {
     public void deleteById(Movie_CompanyKey id) {
         movieCompanyRepo.deleteById(id);
     }
+
+    public void deleteById(int movieId, int companyId) {
+    }
+
+    public Movie_Company findById(int movieId, int companyId) {
+        Movie_CompanyKey key = new Movie_CompanyKey(movieId, companyId);
+        return movieCompanyRepo.findById(key).orElse(null);
+    }
 }

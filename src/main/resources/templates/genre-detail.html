@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalls del Gènere</title>
+    <link rel="stylesheet" href="/detail-page.css">
+</head>
+<body>
+<h1>Detalls del Gènere</h1>
+
+<form action="/editGenre" method="post">
+    <input type="hidden" name="id" th:value="${genre.id}" />
+
+    <label for="genreName">Nom del Gènere:</label>
+    <input type="text" id="genreName" name="genreName" th:value="${genre.genreName}" required>
+
+    <button type="submit">Guardar</button>
+    <a th:href="@{/deleteGenre/{id}(id=${genre.id})}">Eliminar</a>
+</form>
+
+<hr>
+
+<br>
+<a href="/genre">Tornar a la llista</a>
+</body>
+</html>

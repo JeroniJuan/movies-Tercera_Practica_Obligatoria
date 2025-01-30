@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea un Nou Idioma</title>
+    <link rel="stylesheet" href="/create.css">
+</head>
+<body>
+<h1>Crea un Nou Idioma</h1>
+
+<form action="/createLanguage" method="post">
+    <label for="languageName">Nom de l'Idioma:</label>
+    <input type="text" id="languageName" name="language_name" required>
+
+    <label for="languageCode">Codi de l'Idioma:</label>
+    <input type="text" id="languageCode" name="language_code" required>
+
+    <button type="submit">Crear</button>
+</form>
+
+<br>
+<a href="/language">Tornar a la llista d'idiomes</a>
+</body>
+</html>

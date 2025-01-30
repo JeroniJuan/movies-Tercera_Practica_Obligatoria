@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Género</title>
+    <link rel="stylesheet" href="/detail-page.css">
+</head>
+<body>
+<h1>Detalles del Género</h1>
+
+<form action="/editGender" method="post">
+    <input type="hidden" name="id" th:value="${gender.id}" />
+    <label for="gender">Nombre del Género:</label>
+    <input type="text" id="gender" name="gender" th:value="${gender.gender}" required>
+    <button type="submit">Guardar Cambios</button>
+</form>
+
+<a th:href="@{/deleteGender/{id}(id=${gender.id})}">Eliminar Género</a>
+
+<hr>
+
+<br>
+<a href="/gender">Volver a la lista de géneros</a>
+</body>
+</html>

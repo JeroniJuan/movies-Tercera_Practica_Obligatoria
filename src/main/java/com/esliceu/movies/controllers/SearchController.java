@@ -78,4 +78,9 @@ public class SearchController {
         }
         return "index";
     }
+
+    @GetMapping("/crud")
+    public String getCrud(Model model){
+        return "crud";
+    };
 }

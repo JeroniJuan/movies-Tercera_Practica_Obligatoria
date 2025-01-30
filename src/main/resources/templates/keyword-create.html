@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea una Nova Paraula Clau</title>
+    <link rel="stylesheet" href="/create.css">
+</head>
+<body>
+<h1>Crea una Nova Paraula Clau</h1>
+
+<form action="/createKeyword" method="post">
+    <label for="keywordName">Nom de la Paraula Clau:</label>
+    <input type="text" id="keywordName" name="keywordName" required>
+
+    <button type="submit">Crear</button>
+</form>
+
+<br>
+<a href="/keyword">Tornar a la llista de paraules clau</a>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compañías de Producción</title>
+    <link rel="stylesheet" href="/list.css">
+</head>
+<body>
+<h1>Compañías de Producción</h1>
+<a href="/crud">Retorna a la gestio de dades</a>
+<a href="/createProductionCompany">Crear Nueva Compañía</a>
+<br><br>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre de la Compañía</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="company : ${productionCompanies}">
+        <td th:text="${company.id}"></td>
+        <td th:text="${company.companyName}"></td>
+        <td>
+            <a th:href="@{/productionCompanyDetail/{id}(id=${company.id})}">Ver Detalles</a> |
+            <a th:href="@{/deleteProductionCompany/{id}(id=${company.id})}">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<a href="/productionCompany">Volver a la lista de compañías</a>
+</body>
+</html>
