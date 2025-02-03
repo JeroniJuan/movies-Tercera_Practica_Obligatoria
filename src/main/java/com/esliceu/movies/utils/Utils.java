@@ -23,8 +23,12 @@ public class Utils {
             throw new RuntimeException(e);
         }
     }
-    public static LocalDate stringToLocalDate(String dateStr) {
+    public static LocalDate stringToLocalDate(String date) {
+        if (date == null || date.trim().isEmpty()) {
+            return null;
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(dateStr, formatter);
+        return LocalDate.parse(date, formatter);
     }
+
 }

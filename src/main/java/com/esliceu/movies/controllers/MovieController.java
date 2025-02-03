@@ -3,6 +3,7 @@ package com.esliceu.movies.controllers;
 import com.esliceu.movies.models.*;
 import com.esliceu.movies.services.*;
 import com.esliceu.movies.utils.Utils;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,31 +42,79 @@ public class MovieController {
     @Autowired
     MovieCrewService movieCrewService;
 
+    @Autowired
+    GenreService genreService;
+
+    @Autowired
+    CountryService countryService;
+
+    @Autowired
+    LanguageService languageService;
+
+    @Autowired
+    KeywordService keywordService;
+
+    @Autowired
+    ProductionCompanyService productionCompanyService;
+
     @GetMapping("/movie")
     public String getMovieDetails(@RequestParam int id, Model model, HttpSession session) {
         Movie movie = movieService.findById(id);
+
+        List<Movie_Genres> movieGenres = movieGenreService.findByMovieId(id);
         List<Production_Country> productionCountries = productionCountryService.findByMovieId(id);
         List<Movie_Languages> movieLanguages = movieLanguagesService.findByMovieId(id);
-        List<Movie_Genres> movieGenres = movieGenreService.findByMovieId(id);
         List<Movie_Keywords> movieKeywords = movieKeywordService.findByMovieId(id);
         List<Movie_Company> movieCompanies = movieCompanyService.findByMovieId(id);
         List<Movie_Cast> movieCasts = movieCastService.findByMovieId(id);
         List<Movie_Crew> movieCrews = movieCrewService.findByMovieId(id);
 
+        List<Genre> allGenres = genreService.findAll();
+        List<Genre> remainingGenres = allGenres.stream()
+                .filter(g -> movieGenres.stream().noneMatch(mg -> mg.getGenre().getId() == g.getId()))
+                .toList();
+
+        List<Country> allCountries = countryService.findAll();
+        List<Country> remainingCountries = allCountries.stream()
+                .filter(c -> productionCountries.stream().noneMatch(pc -> pc.getCountry().getId() == c.getId()))
+                .toList();
+
+        List<Language> allLanguages = languageService.findAll();
+        List<Language> remainingLanguages = allLanguages.stream()
+                .filter(l -> movieLanguages.stream().noneMatch(ml -> ml.getLanguage().getId() == l.getId()))
+                .toList();
+
+        List<Keyword> allKeywords = keywordService.findAll();
+        List<Keyword> remainingKeywords = allKeywords.stream()
+                .filter(k -> movieKeywords.stream().noneMatch(mk -> mk.getKeyword().getId() == k.getId()))
+                .toList();
+
+        List<Production_Company> allCompanies = productionCompanyService.findAll();
+        List<Production_Company> remainingCompanies = allCompanies.stream()
+                .filter(c -> movieCompanies.stream().noneMatch(mc -> mc.getCompany().getId() == c.getId()))
+                .toList();
+
         model.addAttribute("movie", movie);
+        model.addAttribute("movieGenres", movieGenres);
         model.addAttribute("productionCountries", productionCountries);
         model.addAttribute("movieLanguages", movieLanguages);
-        model.addAttribute("movieGenres", movieGenres);
         model.addAttribute("movieKeywords", movieKeywords);
         model.addAttribute("movieCompanies", movieCompanies);
         model.addAttribute("movieCasts", movieCasts);
         model.addAttribute("movieCrews", movieCrews);
+
+        model.addAttribute("remainingGenres", remainingGenres);
+        model.addAttribute("remainingCountries", remainingCountries);
+        model.addAttribute("remainingLanguages", remainingLanguages);
+        model.addAttribute("remainingKeywords", remainingKeywords);
+        model.addAttribute("remainingCompanies", remainingCompanies);
 
         return "movie-details";
     }
 
 
     @PostMapping("/movie")
+    @Transactional
     public String updateMovie(@RequestParam int id,
                               @RequestParam(required = false) String title,
                               @RequestParam(required = false) String description,
