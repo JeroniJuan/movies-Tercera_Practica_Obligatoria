@@ -17,6 +17,12 @@ public class Production_Country {
     @JoinColumn(name = "country_id")
     private Country country;
 
+    public Production_Country(Production_CountryKey productionCountryKey) {
+    }
+
+    public Production_Country() {
+    }
+
     public Production_CountryKey getId() {
         return id;
     }

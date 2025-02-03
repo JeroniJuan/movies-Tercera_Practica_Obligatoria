@@ -9,6 +9,12 @@ public class Production_CountryKey implements Serializable {
     private int movie_id;
     private int country_id;
 
+    public Production_CountryKey(int movieId, Integer countryId) {
+    }
+
+    public Production_CountryKey() {
+    }
+
     public int getMovie_id() {
         return movie_id;
     }

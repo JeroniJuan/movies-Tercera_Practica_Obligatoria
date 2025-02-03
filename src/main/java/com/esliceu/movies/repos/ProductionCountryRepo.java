@@ -8,4 +8,6 @@ import java.util.List;
 public interface ProductionCountryRepo extends JpaRepository<Production_Country, Integer> {
 
     List<Production_Country> findByMovieId(int id);
+
+    void deleteByMovieId(int movieId);
 }

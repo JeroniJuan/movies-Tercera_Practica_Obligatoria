@@ -37,7 +37,16 @@ public class MovieCompanyService {
         return movieCompanyRepo.findById(key).orElse(null);
     }
 
-    public List<Movie_Company> findByMovieId(int id) {
-        return movieCompanyRepo.findByMovieId(id);
+    public List<Movie_Company> findByMovieId(int movieId) {
+        return movieCompanyRepo.findByMovieId(movieId);
     }
+
+    public void updateMovieCompanies(int movieId, List<Integer> companyIds) {
+        movieCompanyRepo.deleteByMovieId(movieId);
+        for (Integer companyId : companyIds) {
+            Movie_Company mc = new Movie_Company(new Movie_CompanyKey(movieId, companyId));
+            movieCompanyRepo.save(mc);
+        }
+    }
+
 }

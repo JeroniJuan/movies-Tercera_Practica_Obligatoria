@@ -15,6 +15,12 @@ public class Country {
     @Column(length = 200, name = "country_name")
     private String countryName;
 
+    public Country(int countryId) {
+    }
+
+    public Country() {
+    }
+
     public int getId() {
         return id;
     }

@@ -17,6 +17,12 @@ public class Movie_Genres {
     @JoinColumn(name = "genre_id")
     private Genre genre;
 
+    public Movie_Genres(Movie_GenresKey movieGenresKey) {
+    }
+
+    public Movie_Genres() {
+    }
+
     public Movie_GenresKey getId() {
         return id;
     }

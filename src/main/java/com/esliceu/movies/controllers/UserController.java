@@ -2,7 +2,7 @@ package com.esliceu.movies.controllers;
 
 import com.esliceu.movies.models.User;
 import com.esliceu.movies.services.UserService;
-import com.esliceu.movies.utils.StringToSHA256;
+import com.esliceu.movies.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +48,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password, HttpSession session) throws NoSuchAlgorithmException {
-        String hashedPassword = StringToSHA256.getSHA256(password);
+        String hashedPassword = Utils.getSHA256(password);
 
         User user = userService.findByUserName(username);
 

@@ -2,6 +2,8 @@ package com.esliceu.movies.services;
 
 import com.esliceu.movies.models.Movie;
 import com.esliceu.movies.models.Movie_Crew;
+import com.esliceu.movies.models.Movie_CrewKey;
+import com.esliceu.movies.models.Person;
 import com.esliceu.movies.repos.MovieCrewRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +40,21 @@ public class MovieCrewService {
         return directors;
     }
 
-    public List<Movie_Crew> findByMovieId(int id) {
-        return  movieCrewRepo.findByMovieId(id);
+    public List<Movie_Crew> findByMovieId(int movieId) {
+        return movieCrewRepo.findByMovieId(movieId);
     }
+
+    public void updateMovieCrew(int movieId, List<Integer> personIds, List<String> jobTitles) {
+        movieCrewRepo.deleteByMovieId(movieId);
+
+        for (int i = 0; i < personIds.size(); i++) {
+            Movie_Crew movieCrew = new Movie_Crew();
+            movieCrew.setMovie(new Movie(movieId));
+            movieCrew.setPerson(new Person(personIds.get(i)));
+            movieCrew.setJob(jobTitles.get(i));
+            movieCrewRepo.save(movieCrew);
+        }
+    }
+
+
 }

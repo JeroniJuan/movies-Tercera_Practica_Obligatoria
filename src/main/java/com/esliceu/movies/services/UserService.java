@@ -4,7 +4,7 @@ import com.esliceu.movies.models.Autoritzation;
 import com.esliceu.movies.models.Permission;
 import com.esliceu.movies.models.User;
 import com.esliceu.movies.repos.UserRepo;
-import com.esliceu.movies.utils.StringToSHA256;
+import com.esliceu.movies.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class UserService {
     }
 
     public User save(User user) throws NoSuchAlgorithmException {
-        user.setUserPassword(StringToSHA256.getSHA256(user.getUserPassword()));
+        user.setUserPassword(Utils.getSHA256(user.getUserPassword()));
         return userRepo.save(user);
     }
 
@@ -42,7 +42,7 @@ public class UserService {
     }
 
     public boolean checkPassword(User user, String password) throws NoSuchAlgorithmException {
-        return StringToSHA256.getSHA256(password).equals(user.getUserPassword());
+        return Utils.getSHA256(password).equals(user.getUserPassword());
     }
 
     public boolean isUserAuthorized(User user, Permission.permission_name permissionName) {

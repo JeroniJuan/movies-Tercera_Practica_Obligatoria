@@ -12,6 +12,12 @@ public class Person {
     @Column(length = 500, name = "person_name")
     private String personName;
 
+    public Person(int id) {
+    }
+
+    public Person() {
+    }
+
     public int getId() {
         return id;
     }

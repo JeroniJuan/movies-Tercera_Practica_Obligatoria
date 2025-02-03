@@ -10,6 +10,12 @@ public class Movie_CastKey implements Serializable {
     private int person_id;
     private int gender_id;
 
+    public Movie_CastKey(int movieId, int id) {
+    }
+
+    public Movie_CastKey() {
+    }
+
     public int getMovie_id() {
         return movie_id;
     }

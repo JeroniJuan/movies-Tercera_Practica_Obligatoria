@@ -25,6 +25,9 @@ public class Movie_Crew {
     @Column(length = 200)
     private String job;
 
+    public Movie_Crew() {
+    }
+
     public Movie_CrewKey getId() {
         return id;
     }

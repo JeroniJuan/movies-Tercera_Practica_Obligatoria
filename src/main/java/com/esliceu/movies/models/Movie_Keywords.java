@@ -17,6 +17,12 @@ public class Movie_Keywords {
     @JoinColumn(name = "keyword_id")
     private Keyword keyword;
 
+    public Movie_Keywords(Movie_KeywordsKey movieKeywordsKey) {
+    }
+
+    public Movie_Keywords() {
+    }
+
     public Movie_KeywordsKey getId() {
         return id;
     }

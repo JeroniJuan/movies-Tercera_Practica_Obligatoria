@@ -17,12 +17,12 @@
     <input type="number" id="movieId" name="movie.id" th:value="${movieCompany.movie.id}" readonly>
 
     <label for="companyId">ID de la Companyia:</label>
-    <input type="number" id="companyId" name="companyId.id" th:value="${movieCompany.companyId.id}" readonly>
+    <input type="number" id="companyId" name="company.id" th:value="${movieCompany.company.id}" readonly>
 
     <button type="submit">Guardar</button>
 </form>
 
-<a th:href="@{/deleteMovieCompany/{movieId}/{companyId}(movieId=${movieCompany.movie.id}, companyId=${movieCompany.companyId.id})}">Eliminar</a>
+<a th:href="@{/deleteMovieCompany/{movieId}/{company}(movieId=${movieCompany.movie.id}, company=${movieCompany.company.id})}">Eliminar</a>
 
 <hr>
 

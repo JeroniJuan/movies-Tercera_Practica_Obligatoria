@@ -9,4 +9,6 @@ import java.util.List;
 public interface MovieCompanyRepo extends JpaRepository<Movie_Company, Movie_CompanyKey> {
 
     List<Movie_Company> findByMovieId(int id);
+
+    void deleteByMovieId(int movieId);
 }

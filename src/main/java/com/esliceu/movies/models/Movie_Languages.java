@@ -22,6 +22,12 @@ public class Movie_Languages {
     @JoinColumn(name = "language_role_id")
     private Language_Role language_role;
 
+    public Movie_Languages(Movie_LanguagesKey movieLanguagesKey) {
+    }
+
+    public Movie_Languages() {
+    }
+
     public Movie_LanguagesKey getId() {
         return id;
     }

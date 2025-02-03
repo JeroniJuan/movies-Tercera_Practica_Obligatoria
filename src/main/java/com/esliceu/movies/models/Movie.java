@@ -53,6 +53,12 @@ public class Movie {
 
     private int vote_count;
 
+    public Movie(int movieId) {
+    }
+
+    public Movie() {
+    }
+
     public int getId() {
         return id;
     }

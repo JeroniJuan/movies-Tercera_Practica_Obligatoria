@@ -8,4 +8,6 @@ import java.util.List;
 public interface MovieLanguagesRepo extends JpaRepository<Movie_Languages, Integer> {
 
     List<Movie_Languages> findByMovieId(int id);
+
+    void deleteByMovieId(int movieId);
 }

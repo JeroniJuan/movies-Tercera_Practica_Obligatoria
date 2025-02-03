@@ -9,6 +9,12 @@ public class Movie_GenresKey implements Serializable {
     private int movie_id;
     private int genre_id;
 
+    public Movie_GenresKey(int movieId, Integer genreId) {
+    }
+
+    public Movie_GenresKey() {
+    }
+
     public int getMovie_id() {
         return movie_id;
     }

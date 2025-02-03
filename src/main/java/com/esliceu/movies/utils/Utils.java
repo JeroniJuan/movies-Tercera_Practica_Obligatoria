@@ -1,10 +1,11 @@
 package com.esliceu.movies.utils;
 
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-public class StringToSHA256 {
+public class Utils {
     public static String getSHA256(String input) throws NoSuchAlgorithmException {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -21,5 +22,9 @@ public class StringToSHA256 {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    public static LocalDate stringToLocalDate(String dateStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(dateStr, formatter);
     }
 }

@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Pel·lícula</title>
-    <link rel="stylesheet" href="/detail-page.css">
+    <link rel="stylesheet" href="/movie-details.css">
 </head>
 <body>
 <h1>Editar Pel·lícula: <span th:text="${movie.title}"></span></h1>
 
 <form th:action="@{/movie}" th:object="${movie}" method="post">
-    <input type="hidden" th:value="${movie.id}" id="id" name="id">
+    <input type="hidden" th:field="*{id}" />
+
     <div>
         <label for="title">Títol</label>
         <input type="text" th:field="*{title}" id="title" required />
@@ -27,47 +28,66 @@
         <textarea th:field="*{overview}" id="overview"></textarea>
     </div>
     <div>
-        <label for="release_date"></label>
+        <label for="release_date">Data d'Estrena</label>
         <input type="date" th:field="*{release_date}" id="release_date" />
     </div>
+
+    <h2>Gèneres</h2>
     <div>
-        <label for="revenue">Ingressos</label>
-        <input type="number" th:field="*{revenue}" id="revenue" />
-    </div>
-    <div>
-        <label for="runtime">Durada</label>
-        <input type="number" th:field="*{runtime}" id="runtime" />
-    </div>
-    <div>
-        <label for="movie_status">Estat</label>
-        <input type="text" th:field="*{movie_status}" id="movie_status" />
-    </div>
-    <div>
-        <label for="tagline">Lema</label>
-        <input type="text" th:field="*{tagline}" id="tagline" />
-    </div>
-    <div>
-        <label for="vote_average">Promig de vots</label>
-        <input type="number" step="0.01" th:field="*{vote_average}" id="vote_average" />
-    </div>
-    <div>
-        <label for="vote_count">Quantitat de vots</label>
-        <input type="number" th:field="*{vote_count}" id="vote_count" />
+        <select name="genreIds" th:field="*{genreIds}" id="genreIds" multiple>
+            <option th:each="genre : ${movieGenres}" th:value="${genre.id}"
+                    th:text="${genre.genre.genreName}"></option>
+        </select>
     </div>
 
-    <!-- <h2>Repartiment de la Pel·lícula</h2>
-    <div th:each="cast : ${movie.movieCasts}">
-        <div>
-            <label for="characterName">Personatge</label>
-            <input type="text" th:field="*{movieCasts[__${castStat.index}__].characterName}" id="characterName" />
-        </div>
-        <div>
-            <label for="cast_order">Ordre de repartiment</label>
-            <input type="number" th:field="*{movieCasts[__${castStat.index}__].cast_order}" id="cast_order" />
-        </div>
-    </div> -->
+    <h2>Països de Producció</h2>
+    <div>
+        <select name="countryIds" th:field="*{countryIds}" id="countryIds" multiple>
+            <option th:each="country : ${productionCountries}" th:value="${country.id}"
+                    th:text="${country.country.countryName}"></option>
+        </select>
+    </div>
+
+    <h2>Idiomes</h2>
+    <div>
+        <select name="languageIds" th:field="*{languageIds}" id="languageIds" multiple>
+            <option th:each="language : ${movieLanguages}" th:value="${language.id}"
+                    th:text="${language.language.languageName}"></option>
+        </select>
+    </div>
+
+    <h2>Paraules Clau</h2>
+    <div>
+        <select name="keywordIds" th:field="*{keywordIds}" id="keywordIds" multiple>
+            <option th:each="keyword : ${movieKeywords}" th:value="${keyword.id}"
+                    th:text="${keyword.keyword.keywordName}"></option>
+        </select>
+    </div>
+
+    <h2>Companyies de Producció</h2>
+    <div>
+        <select name="companyIds" th:field="*{companyIds}" id="companyIds" multiple>
+            <option th:each="company : ${movieCompanies}" th:value="${company.id}"
+                    th:text="${company.company.companyName}"></option>
+        </select>
+    </div>
+
+    <h2>Repartiment</h2>
+    <div th:each="cast, iter : ${movieCasts}">
+        <label th:text="${cast.person.personName}"></label>
+        <input type="hidden" name="castIds" th:value="${cast.person.id}" />
+        <input type="text" name="characterNames" th:value="${cast.characterName}" />
+    </div>
+
+    <h2>Equip Tècnic</h2>
+    <div th:each="crew, iter : ${movieCrews}">
+        <label th:text="${crew.person.personName}"></label>
+        <input type="hidden" name="crewIds" th:value="${crew.person.id}" />
+        <input type="text" name="jobTitles" th:value="${crew.job}" />
+    </div>
 
     <button type="submit">Desar canvis</button>
 </form>
+
 </body>
 </html>

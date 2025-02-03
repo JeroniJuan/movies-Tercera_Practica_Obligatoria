@@ -14,4 +14,5 @@ public interface MovieCastRepo extends JpaRepository<Movie_Cast, Long> {
 
     List<Movie_Cast> findByPersonPersonName(String name);
 
+    void deleteByMovieId(int movieId);
 }

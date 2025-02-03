@@ -15,7 +15,13 @@ public class Movie_Company {
     @ManyToOne
     @MapsId("company_id")
     @JoinColumn(name = "company_id")
-    private Production_Company companyId;
+    private Production_Company company;
+
+    public Movie_Company(Movie_CompanyKey movieCompanyKey) {
+    }
+
+    public Movie_Company() {
+    }
 
     public Movie_CompanyKey getId() {
         return id;
@@ -33,11 +39,11 @@ public class Movie_Company {
         this.movie = movie_id;
     }
 
-    public Production_Company getCompanyId() {
-        return companyId;
+    public Production_Company getCompany() {
+        return company;
     }
 
-    public void setCompanyId(Production_Company companyId) {
-        this.companyId = companyId;
+    public void setCompany(Production_Company company) {
+        this.company = company;
     }
 }

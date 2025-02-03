@@ -10,6 +10,12 @@ public class Movie_CrewKey implements Serializable {
     private int movie_id;
     private int department_id;
 
+    public Movie_CrewKey(int movieId, int id) {
+    }
+
+    public Movie_CrewKey() {
+    }
+
     public int getPerson_id() {
         return person_id;
     }

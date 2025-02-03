@@ -12,6 +12,9 @@ public class Movie_CompanyKey implements Serializable {
     public Movie_CompanyKey(int movieId, int companyId) {
     }
 
+    public Movie_CompanyKey() {
+    }
+
     public int getMovie_id() {
         return movie_id;
     }

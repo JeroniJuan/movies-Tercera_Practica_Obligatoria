@@ -32,6 +32,9 @@ public class Movie_Cast {
         return id;
     }
 
+    public Movie_Cast() {
+    }
+
     public void setId(Movie_CastKey id) {
         this.id = id;
     }
