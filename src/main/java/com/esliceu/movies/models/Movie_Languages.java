@@ -20,7 +20,7 @@ public class Movie_Languages {
     @ManyToOne
     @MapsId("language_role_id")
     @JoinColumn(name = "language_role_id")
-    private Language_Role language_role;
+    private Language_Role languageRole;
 
     public Movie_Languages(Movie_LanguagesKey movieLanguagesKey) {
     }
@@ -52,11 +52,11 @@ public class Movie_Languages {
         this.language = language;
     }
 
-    public Language_Role getLanguage_role() {
-        return language_role;
+    public Language_Role getLanguageRole() {
+        return languageRole;
     }
 
-    public void setLanguage_role(Language_Role language_role) {
-        this.language_role = language_role;
+    public void setLanguageRole(Language_Role languageRole) {
+        this.languageRole = languageRole;
     }
 }

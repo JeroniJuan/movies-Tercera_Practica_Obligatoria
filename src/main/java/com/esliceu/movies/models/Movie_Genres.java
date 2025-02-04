@@ -8,12 +8,12 @@ public class Movie_Genres {
     private Movie_GenresKey id;
 
     @ManyToOne
-    @MapsId("movie_id")
+    @MapsId("movieId")
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
     @ManyToOne
-    @MapsId("genre_id")
+    @MapsId("genreId")
     @JoinColumn(name = "genre_id")
     private Genre genre;
 

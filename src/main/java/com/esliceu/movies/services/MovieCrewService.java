@@ -57,4 +57,7 @@ public class MovieCrewService {
     }
 
 
+    public List<Movie_Crew> findAll() {
+        return movieCrewRepo.findAll();
+    }
 }

@@ -9,7 +9,7 @@
 <body>
 <h1>Editar Pel·lícula: <span th:text="${movie.title}"></span></h1>
 
-<form th:action="@{/movie}" th:object="${movie}" method="post">
+<form th:action="@{/movie}" th:object="${movie}" method="post" onsubmit="selectAllOptions()">
     <input type="hidden" th:field="*{id}" />
 
     <div>
@@ -35,111 +35,152 @@
 
     <h2>Gèneres</h2>
     <div style="display: flex; gap: 20px; align-items: center;">
-        <select name="genreIds" id="genreIds" multiple>
-            <option th:each="genre : ${movieGenres}" th:value="${genre.genre.id}"
-                    th:text="${genre.genre.genreName}"></option>
-        </select>
+        <div>
+            <label>Gèneres Incluits</label>
+            <select name="genreIds" id="genreIds" multiple>
+                <option th:each="genre : ${movieGenres}" th:value="${genre.genre.id}"
+                        th:text="${genre.genre.genreName}"></option>
+            </select>
+        </div>
 
         <div style="display: flex; flex-direction: column;">
             <button type="button" onclick="moveItem('remainingGenres', 'genreIds')">⬅</button>
             <button type="button" onclick="moveItem('genreIds', 'remainingGenres')">➜</button>
         </div>
 
-        <select id="remainingGenres" multiple>
-            <option th:each="genre : ${remainingGenres}" th:value="${genre.id}"
-                    th:text="${genre.genreName}"></option>
-        </select>
+        <div>
+            <label>Gèneres No Incluits</label>
+            <select id="remainingGenres" multiple>
+                <option th:each="genre : ${remainingGenres}" th:value="${genre.id}"
+                        th:text="${genre.genreName}"></option>
+            </select>
+        </div>
     </div>
 
     <h2>Països de Producció</h2>
     <div style="display: flex; gap: 20px; align-items: center;">
-        <select name="countryIds" id="countryIds" multiple>
-            <option th:each="country : ${productionCountries}" th:value="${country.country.id}"
-                    th:text="${country.country.countryName}"></option>
-        </select>
+        <div>
+            <label>Països Incluits</label>
+            <select name="countryIds" id="countryIds" multiple>
+                <option th:each="country : ${productionCountries}" th:value="${country.country.id}"
+                        th:text="${country.country.countryName}"></option>
+            </select>
+        </div>
 
         <div style="display: flex; flex-direction: column;">
             <button type="button" onclick="moveItem('remainingCountries', 'countryIds')">⬅</button>
             <button type="button" onclick="moveItem('countryIds', 'remainingCountries')">➜</button>
         </div>
 
-        <select id="remainingCountries" multiple>
-            <option th:each="country : ${remainingCountries}" th:value="${country.id}"
-                    th:text="${country.countryName}"></option>
-        </select>
+        <div>
+            <label>Països No Incluits</label>
+            <select id="remainingCountries" multiple>
+                <option th:each="country : ${remainingCountries}" th:value="${country.id}"
+                        th:text="${country.countryName}"></option>
+            </select>
+        </div>
     </div>
 
     <h2>Idiomes</h2>
     <div style="display: flex; gap: 20px; align-items: center;">
-        <select name="languageIds" id="languageIds" multiple>
-            <option th:each="language : ${movieLanguages}" th:value="${language.language.id}"
-                    th:text="${language.language.languageName}"></option>
-        </select>
+        <div>
+            <label>Idiomes Incluits</label>
+            <select name="languageIds" id="languageIds" multiple>
+                <option th:each="language : ${movieLanguages}"
+                        th:value="${language.language.id}"
+                        th:text="${language.language.languageName + ' (' + language.languageRole.languageRole + ')'}">
+                </option>
+            </select>
+        </div>
 
         <div style="display: flex; flex-direction: column;">
             <button type="button" onclick="moveItem('remainingLanguages', 'languageIds')">⬅</button>
             <button type="button" onclick="moveItem('languageIds', 'remainingLanguages')">➜</button>
         </div>
 
-        <select id="remainingLanguages" multiple>
-            <option th:each="language : ${remainingLanguages}" th:value="${language.id}"
-                    th:text="${language.languageName}"></option>
-        </select>
+        <div>
+            <label>Agregar Idiomes</label>
+            <select id="remainingLanguages" multiple>
+                <option th:each="language : ${remainingLanguages}"
+                        th:value="${language.id}"
+                        th:text="${language.languageName + ' (' + language.languageRole.languageName + ')'}">
+                </option>
+            </select>
+        </div>
     </div>
 
     <h2>Paraules Clau</h2>
     <div style="display: flex; gap: 20px; align-items: center;">
-        <select name="keywordIds" id="keywordIds" multiple>
-            <option th:each="keyword : ${movieKeywords}" th:value="${keyword.keyword.id}"
-                    th:text="${keyword.keyword.keywordName}"></option>
-        </select>
+        <div>
+            <label>Paraules Clau Incluides</label>
+            <select name="keywordIds" id="keywordIds" multiple>
+                <option th:each="keyword : ${movieKeywords}" th:value="${keyword.keyword.id}"
+                        th:text="${keyword.keyword.keywordName}"></option>
+            </select>
+        </div>
 
         <div style="display: flex; flex-direction: column;">
             <button type="button" onclick="moveItem('remainingKeywords', 'keywordIds')">⬅</button>
             <button type="button" onclick="moveItem('keywordIds', 'remainingKeywords')">➜</button>
         </div>
 
-        <select id="remainingKeywords" multiple>
-            <option th:each="keyword : ${remainingKeywords}" th:value="${keyword.id}"
-                    th:text="${keyword.keywordName}"></option>
-        </select>
+        <div>
+            <label>Paraules Clau No Incluides</label>
+            <select id="remainingKeywords" multiple>
+                <option th:each="keyword : ${remainingKeywords}" th:value="${keyword.id}"
+                        th:text="${keyword.keywordName}"></option>
+            </select>
+        </div>
     </div>
 
     <h2>Companyies de Producció</h2>
     <div style="display: flex; gap: 20px; align-items: center;">
-        <select name="companyIds" id="companyIds" multiple>
-            <option th:each="company : ${movieCompanies}" th:value="${company.company.id}"
-                    th:text="${company.company.companyName}"></option>
-        </select>
+        <div>
+            <label>Companyies Incluides</label>
+            <select name="companyIds" id="companyIds" multiple>
+                <option th:each="company : ${movieCompanies}" th:value="${company.company.id}"
+                        th:text="${company.company.companyName}"></option>
+            </select>
+        </div>
 
         <div style="display: flex; flex-direction: column;">
             <button type="button" onclick="moveItem('remainingCompanies', 'companyIds')">⬅</button>
             <button type="button" onclick="moveItem('companyIds', 'remainingCompanies')">➜</button>
         </div>
 
-        <select id="remainingCompanies" multiple>
-            <option th:each="company : ${remainingCompanies}" th:value="${company.id}"
-                    th:text="${company.companyName}"></option>
-        </select>
+        <div>
+            <label>Companyies No Incluides</label>
+            <select id="remainingCompanies" multiple>
+                <option th:each="company : ${remainingCompanies}" th:value="${company.id}"
+                        th:text="${company.companyName}"></option>
+            </select>
+        </div>
     </div>
 
-
-   <!-- <h2>Repartiment</h2>
-    <div th:each="cast : ${movieCasts}">
-        <label th:text="${cast.person.personName}"></label>
-        <input type="hidden" name="castIds" th:value="${cast.person.id}" />
-        <input type="text" name="characterNames" th:value="${cast.characterName}" />
+    <h2>Repartiment</h2>
+    <div style="display: flex; gap: 20px; align-items: center;">
+        <div>
+            <label>Repartiment Inclòs</label>
+            <select name="castIds" id="castIds" multiple>
+                <option th:each="cast : ${movieCasts}" th:value="${cast.person.id}"
+                        th:text="${cast.person.personName + ' - ' + cast.characterName}">
+                </option>
+            </select>
+        </div>
     </div>
 
     <h2>Equip Tècnic</h2>
-    <div th:each="crew : ${movieCrews}">
-        <label th:text="${crew.person.personName}"></label>
-        <input type="hidden" name="crewIds" th:value="${crew.person.id}" />
-        <input type="text" name="jobTitles" th:value="${crew.job}" />
-    </div> -->
-
+    <div style="display: flex; gap: 20px; align-items: center;">
+        <div>
+            <label>Equip Inclòs</label>
+            <select name="crewIds" id="crewIds" multiple>
+                <option th:each="crew : ${movieCrews}" th:value="${crew.person.id}"
+                        th:text="${crew.person.personName + ' - ' + crew.job}">
+                </option>
+            </select>
+        </div>
+    </div>
     <button type="submit">Desar canvis</button>
 </form>
-
 </body>
 </html>

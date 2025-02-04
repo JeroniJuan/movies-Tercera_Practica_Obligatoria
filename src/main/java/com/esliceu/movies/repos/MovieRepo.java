@@ -11,6 +11,9 @@ public interface MovieRepo extends JpaRepository<Movie, Integer> {
     List<Movie> findAll();
 
     List<Movie> findByTitle(String title);
+
+    Movie findById(int id);
+
     // Troba totas les peliculas del actor amb la id
     List<Movie> findByMovieCastsPersonId(int person_id);
 

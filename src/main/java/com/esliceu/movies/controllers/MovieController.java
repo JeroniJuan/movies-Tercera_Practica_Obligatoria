@@ -31,6 +31,9 @@ public class MovieController {
     MovieGenreService movieGenreService;
 
     @Autowired
+    PersonService personService;
+
+    @Autowired
     MovieKeywordService movieKeywordService;
 
     @Autowired
@@ -112,7 +115,6 @@ public class MovieController {
         return "movie-details";
     }
 
-
     @PostMapping("/movie")
     @Transactional
     public String updateMovie(@RequestParam int id,
@@ -124,6 +126,7 @@ public class MovieController {
                               @RequestParam(required = false) List<Integer> genreIds,
                               @RequestParam(required = false) List<Integer> countryIds,
                               @RequestParam(required = false) List<Integer> languageIds,
+                              @RequestParam(required = false) List<Integer> languageRoleIds,
                               @RequestParam(required = false) List<Integer> keywordIds,
                               @RequestParam(required = false) List<Integer> companyIds,
                               @RequestParam(required = false) List<Integer> castIds,
@@ -133,20 +136,17 @@ public class MovieController {
                               HttpSession session) {
 
         Movie movie = movieService.findById(id);
-
         if (movie == null) {
             return "redirect:/";
         }
 
         Integer userId = (Integer) session.getAttribute("loggedInUserId");
         if (userId == null) {
-            System.out.println("No user");
             return "redirect:/login";
         }
 
         boolean canModify = permissionService.isUserAuthorized(userId, Permission.permission_name.modify_movie);
         if (!canModify) {
-            System.out.println("No pots modificar");
             return "redirect:/";
         }
 
@@ -166,8 +166,8 @@ public class MovieController {
         if (countryIds != null) {
             productionCountryService.updateMovieProductionCountries(id, countryIds);
         }
-        if (languageIds != null) {
-            movieLanguagesService.updateMovieLanguages(id, languageIds);
+        if (languageIds != null && languageRoleIds != null && languageIds.size() == languageRoleIds.size()) {
+            movieLanguagesService.updateMovieLanguages(id, languageIds, languageRoleIds);
         }
         if (keywordIds != null) {
             movieKeywordService.updateMovieKeywords(id, keywordIds);
@@ -175,17 +175,16 @@ public class MovieController {
         if (companyIds != null) {
             movieCompanyService.updateMovieCompanies(id, companyIds);
         }
-        if (castIds != null && characterNames != null) {
+        if (castIds != null && characterNames != null && castIds.size() == characterNames.size()) {
             movieCastService.updateMovieCast(id, castIds, characterNames);
         }
-        if (crewIds != null && jobTitles != null) {
+        if (crewIds != null && jobTitles != null && crewIds.size() == jobTitles.size()) {
             movieCrewService.updateMovieCrew(id, crewIds, jobTitles);
         }
-
-        System.out.println("Actualitzant pelicula i totes les seves relacions");
-
         return "redirect:/movie?id=" + id;
     }
+
+
 
 
     @GetMapping("/delMovie")

@@ -1,33 +1,39 @@
 package com.esliceu.movies.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 
 @Embeddable
 public class Production_CountryKey implements Serializable {
-    private int movie_id;
-    private int country_id;
+    @Column(name = "movie_id")
+    private int movieId;
 
-    public Production_CountryKey(int movieId, Integer countryId) {
+    @Column(name = "country_id")
+    private int countryId;
+
+    public Production_CountryKey(int movieId, int countryId) {
+        this.movieId = movieId;
+        this.countryId = countryId;
     }
 
     public Production_CountryKey() {
     }
 
-    public int getMovie_id() {
-        return movie_id;
+    public int getMovieId() {
+        return movieId;
     }
 
-    public void setMovie_id(int movie_id) {
-        this.movie_id = movie_id;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
-    public int getCountry_id() {
-        return country_id;
+    public int getCountryId() {
+        return countryId;
     }
 
-    public void setCountry_id(int country_id) {
-        this.country_id = country_id;
+    public void setCountryId(int countryId) {
+        this.countryId = countryId;
     }
 }

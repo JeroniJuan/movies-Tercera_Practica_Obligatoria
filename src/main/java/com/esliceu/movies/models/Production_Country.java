@@ -8,12 +8,12 @@ public class Production_Country {
     private Production_CountryKey id;
 
     @ManyToOne
-    @MapsId("movie_id")
+    @MapsId("movieId")
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
     @ManyToOne
-    @MapsId("country_id")
+    @MapsId("countryId")
     @JoinColumn(name = "country_id")
     private Country country;
 

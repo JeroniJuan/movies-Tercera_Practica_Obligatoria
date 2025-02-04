@@ -1,33 +1,40 @@
 package com.esliceu.movies.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 
 @Embeddable
 public class Movie_GenresKey implements Serializable {
-    private int movie_id;
-    private int genre_id;
+    @Column(name = "movie_id")
+    private int movieId;
 
-    public Movie_GenresKey(int movieId, Integer genreId) {
+    @Column(name = "genre_id")
+    private int genreId;
+
+    public Movie_GenresKey(int movieId, int genreId) {
+        this.movieId = movieId;
+        this.genreId = genreId;
     }
 
     public Movie_GenresKey() {
     }
 
-    public int getMovie_id() {
-        return movie_id;
+    public int getMovieId() {
+        return movieId;
     }
 
-    public void setMovie_id(int movie_id) {
-        this.movie_id = movie_id;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
-    public int getGenre_id() {
-        return genre_id;
+    public int getGenreId() {
+        return genreId;
     }
 
-    public void setGenre_id(int genre_id) {
-        this.genre_id = genre_id;
+    public void setGenreId(int genreId) {
+        this.genreId = genreId;
     }
 }
+

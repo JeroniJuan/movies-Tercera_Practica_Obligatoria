@@ -44,4 +44,7 @@ public class MovieCastService {
         return movieCastRepo.findByPersonPersonName(actorName).getFirst().getId().getPerson_id();
     }
 
+    public List<Movie_Cast> findAll() {
+        return  movieCastRepo.findAll();
+    }
 }

@@ -1,17 +1,27 @@
 package com.esliceu.movies.services;
 
+import com.esliceu.movies.models.Movie;
 import com.esliceu.movies.models.Movie_Company;
 import com.esliceu.movies.models.Movie_CompanyKey;
+import com.esliceu.movies.models.Production_Company;
 import com.esliceu.movies.repos.MovieCompanyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class MovieCompanyService {
     @Autowired
     private MovieCompanyRepo movieCompanyRepo;
+
+    @Autowired
+    private MovieService movieService;
+
+    @Autowired
+    private ProductionCompanyService productionCompanyService;
 
     public List<Movie_Company> findAll() {
         return movieCompanyRepo.findAll();
@@ -42,11 +52,33 @@ public class MovieCompanyService {
     }
 
     public void updateMovieCompanies(int movieId, List<Integer> companyIds) {
-        movieCompanyRepo.deleteByMovieId(movieId);
-        for (Integer companyId : companyIds) {
-            Movie_Company mc = new Movie_Company(new Movie_CompanyKey(movieId, companyId));
-            movieCompanyRepo.save(mc);
+        Movie movie = movieService.findById(movieId);
+        List<Movie_Company> currentCompanies = movieCompanyRepo.findByMovieId(movieId);
+
+        Set<Integer> newCompanyIds = new HashSet<>(companyIds);
+
+        for (Movie_Company mc : currentCompanies) {
+            if (!newCompanyIds.contains(mc.getCompany().getId())) {
+                movieCompanyRepo.delete(mc);
+            }
+        }
+
+        for (int companyId : companyIds) {
+            Production_Company company = productionCompanyService.findById(companyId);
+
+            boolean exists = currentCompanies.stream()
+                    .anyMatch(mc -> mc.getCompany().getId() == companyId);
+            if (!exists) {
+                Movie_CompanyKey key = new Movie_CompanyKey(movie.getId(), company.getId());
+                Movie_Company movieCompany = new Movie_Company();
+                movieCompany.setId(key);
+                movieCompany.setMovie(movie);
+                movieCompany.setCompany(company);
+                movieCompanyRepo.save(movieCompany);
+            }
         }
     }
+
+
 
 }

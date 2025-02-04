@@ -10,7 +10,7 @@ public class Movie_LanguagesKey implements Serializable {
     private int language_id;
     private int language_role_id;
 
-    public Movie_LanguagesKey(int movieId, Integer languageId) {
+    public Movie_LanguagesKey(int movieId, int languageId, int language_role_id) {
     }
 
     public Movie_LanguagesKey() {
