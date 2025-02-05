@@ -5,6 +5,7 @@ import com.esliceu.movies.models.Movie;
 import com.esliceu.movies.models.Production_Country;
 import com.esliceu.movies.models.Production_CountryKey;
 import com.esliceu.movies.repos.ProductionCountryRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +57,8 @@ public class ProductionCountryService {
         }
     }
 
-
-
+    @Transactional
+    public void deleteByMovieId(int id) {
+        productionCountryRepo.deleteByMovieId(id);
+    }
 }

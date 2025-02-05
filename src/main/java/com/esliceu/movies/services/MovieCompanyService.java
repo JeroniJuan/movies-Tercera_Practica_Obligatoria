@@ -5,6 +5,7 @@ import com.esliceu.movies.models.Movie_Company;
 import com.esliceu.movies.models.Movie_CompanyKey;
 import com.esliceu.movies.models.Production_Company;
 import com.esliceu.movies.repos.MovieCompanyRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -78,7 +79,8 @@ public class MovieCompanyService {
             }
         }
     }
-
-
-
+    @Transactional
+    public void deleteByMovieId(int id) {
+        movieCompanyRepo.deleteByMovieId(id);
+    }
 }

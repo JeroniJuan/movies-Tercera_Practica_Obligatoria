@@ -7,6 +7,7 @@
 </head>
 <body>
 <h1>Llistat de pel·lícules</h1>
+<a href="/">Retorna al index</a>
 <table>
     <thead>
     <tr>
@@ -22,7 +23,7 @@
         <td>
             <form th:action="@{/delMovie}" method="post">
                 <input type="hidden" name="id" th:value="${movie.movie_id}" />
-                <button class="deleteBtn" type="submit">Borrar pel·lícula</button>
+                <button class="deleteBtn">Borrar pel·lícula</button>
             </form>
         </td>
     </tr>

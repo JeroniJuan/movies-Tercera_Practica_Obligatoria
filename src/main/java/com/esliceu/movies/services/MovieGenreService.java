@@ -7,6 +7,7 @@ import com.esliceu.movies.models.Movie_GenresKey;
 import com.esliceu.movies.repos.GenreRepo;
 import com.esliceu.movies.repos.MovieGenresRepo;
 import com.esliceu.movies.repos.MovieRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,5 +58,10 @@ public class MovieGenreService {
                 movieGenresRepo.save(mg);
             }
         }
+    }
+
+    @Transactional
+    public void deleteByMovieId(int id) {
+        movieGenresRepo.deleteByMovieId(id);
     }
 }

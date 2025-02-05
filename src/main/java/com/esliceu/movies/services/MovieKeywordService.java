@@ -5,6 +5,7 @@ import com.esliceu.movies.models.Movie;
 import com.esliceu.movies.models.Movie_Keywords;
 import com.esliceu.movies.models.Movie_KeywordsKey;
 import com.esliceu.movies.repos.MovieKeywordRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +56,8 @@ public class MovieKeywordService {
         }
     }
 
-
-
+    @Transactional
+    public void deleteByMovieId(int id) {
+        movieKeywordsRepo.deleteByMovieId(id);
+    }
 }

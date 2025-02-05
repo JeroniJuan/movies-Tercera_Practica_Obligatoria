@@ -2,35 +2,33 @@
 <html lang="ca" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Pel·lícula</title>
+    <title>Crear Nova Pel·lícula</title>
     <link rel="stylesheet" href="/movie-details.css">
     <script src="/movie-details.js" defer></script>
 </head>
 <body>
-<h1>Editar Pel·lícula: <span th:text="${movie.title}"></span></h1>
+<h1>Crear Nova Pel·lícula</h1>
 
-<form th:action="@{/movie}" th:object="${movie}" method="post" onsubmit="selectAllOptions()">
-    <input type="hidden" th:field="*{id}" />
-
+<form th:action="@{/createMovie}" method="post" onsubmit="selectAllOptions()">
     <div>
         <label for="title">Títol</label>
-        <input type="text" th:field="*{title}" id="title" required />
+        <input type="text" id="title" name="title" required />
     </div>
     <div>
         <label for="budget">Pressupost</label>
-        <input type="number" th:field="*{budget}" id="budget" required />
+        <input type="number" id="budget" name="budget" required />
     </div>
     <div>
         <label for="homepage">Pàgina web</label>
-        <input type="text" th:field="*{homepage}" id="homepage" />
+        <input type="text" id="homepage" name="homepage" />
     </div>
     <div>
         <label for="overview">Descripció</label>
-        <textarea th:field="*{overview}" id="overview"></textarea>
+        <textarea id="overview" name="description"></textarea>
     </div>
     <div>
         <label for="release_date">Data d'Estrena</label>
-        <input type="date" th:field="*{release_date}" id="release_date" />
+        <input type="date" id="release_date" name="release_date" />
     </div>
 
     <h2>Gèneres</h2>
@@ -38,8 +36,6 @@
         <div>
             <label>Gèneres Incluits</label>
             <select name="genreIds" id="genreIds" multiple>
-                <option th:each="genre : ${movieGenres}" th:value="${genre.genre.id}"
-                        th:text="${genre.genre.genreName}"></option>
             </select>
         </div>
 
@@ -51,7 +47,7 @@
         <div>
             <label>Gèneres No Incluits</label>
             <select id="remainingGenres" multiple>
-                <option th:each="genre : ${remainingGenres}" th:value="${genre.id}"
+                <option th:each="genre : ${allGenres}" th:value="${genre.id}"
                         th:text="${genre.genreName}"></option>
             </select>
         </div>
@@ -62,8 +58,6 @@
         <div>
             <label>Països Incluits</label>
             <select name="countryIds" id="countryIds" multiple>
-                <option th:each="country : ${productionCountries}" th:value="${country.country.id}"
-                        th:text="${country.country.countryName}"></option>
             </select>
         </div>
 
@@ -75,7 +69,7 @@
         <div>
             <label>Països No Incluits</label>
             <select id="remainingCountries" multiple>
-                <option th:each="country : ${remainingCountries}" th:value="${country.id}"
+                <option th:each="country : ${allCountries}" th:value="${country.id}"
                         th:text="${country.countryName}"></option>
             </select>
         </div>
@@ -86,19 +80,8 @@
         <div>
             <label>Idiomes Incluits</label>
             <select name="languageIds" id="languageIds" multiple>
-                <option th:each="language : ${movieLanguages}"
-                        th:value="${language.language.id}"
-                        th:text="${language.language.languageName + ' (' + language.languageRole.languageRole + ')'}"
-                        th:data-role="${language.languageRole.id}" selected>
-                </option>
             </select>
-
-            <select name="languageRoleIds" id="languageRoleIds" style="display:none;" multiple>
-                <option th:each="language : ${movieLanguages}"
-                        th:value="${language.language.id + ':' + language.languageRole.id}"
-                        selected>
-                </option>
-            </select>
+            <select name="languageRoleIds" id="languageRoleIds" style="display:none;" multiple></select>
         </div>
 
         <div style="display: flex; flex-direction: column;">
@@ -109,10 +92,8 @@
         <div>
             <label>Agregar Idiomes</label>
             <select id="allLanguages" multiple>
-                <option th:each="language : ${allLanguages}"
-                        th:value="${language.id}"
-                        th:text="${language.languageName}">
-                </option>
+                <option th:each="language : ${allLanguages}" th:value="${language.id}"
+                        th:text="${language.languageName}"></option>
             </select>
             <label>Selecciona el Rol</label>
             <select id="languageRole">
@@ -122,14 +103,11 @@
         </div>
     </div>
 
-
     <h2>Paraules Clau</h2>
     <div style="display: flex; gap: 20px; align-items: center;">
         <div>
             <label>Paraules Clau Incluides</label>
             <select name="keywordIds" id="keywordIds" multiple>
-                <option th:each="keyword : ${movieKeywords}" th:value="${keyword.keyword.id}"
-                        th:text="${keyword.keyword.keywordName}"></option>
             </select>
         </div>
 
@@ -141,7 +119,7 @@
         <div>
             <label>Paraules Clau No Incluides</label>
             <select id="remainingKeywords" multiple>
-                <option th:each="keyword : ${remainingKeywords}" th:value="${keyword.id}"
+                <option th:each="keyword : ${allKeywords}" th:value="${keyword.id}"
                         th:text="${keyword.keywordName}"></option>
             </select>
         </div>
@@ -152,8 +130,6 @@
         <div>
             <label>Companyies Incluides</label>
             <select name="companyIds" id="companyIds" multiple>
-                <option th:each="company : ${movieCompanies}" th:value="${company.company.id}"
-                        th:text="${company.company.companyName}"></option>
             </select>
         </div>
 
@@ -165,36 +141,12 @@
         <div>
             <label>Companyies No Incluides</label>
             <select id="remainingCompanies" multiple>
-                <option th:each="company : ${remainingCompanies}" th:value="${company.id}"
+                <option th:each="company : ${allCompanies}" th:value="${company.id}"
                         th:text="${company.companyName}"></option>
             </select>
         </div>
     </div>
-
-    <h2>Repartiment</h2>
-    <div style="display: flex; gap: 20px; align-items: center;">
-        <div>
-            <label>Repartiment Inclòs</label>
-            <select name="castIds" id="castIds" multiple>
-                <option th:each="cast : ${movieCasts}" th:value="${cast.person.id}"
-                        th:text="${cast.person.personName + ' - ' + cast.characterName}">
-                </option>
-            </select>
-        </div>
-    </div>
-
-    <h2>Equip Tècnic</h2>
-    <div style="display: flex; gap: 20px; align-items: center;">
-        <div>
-            <label>Equip Inclòs</label>
-            <select name="crewIds" id="crewIds" multiple>
-                <option th:each="crew : ${movieCrews}" th:value="${crew.person.id}"
-                        th:text="${crew.person.personName + ' - ' + crew.job}">
-                </option>
-            </select>
-        </div>
-    </div>
-    <button type="submit">Desar canvis</button>
+    <button type="submit">Desar nova pel·lícula</button>
 </form>
 </body>
 </html>

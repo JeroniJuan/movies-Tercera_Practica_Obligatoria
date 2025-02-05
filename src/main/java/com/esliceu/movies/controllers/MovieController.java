@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -83,9 +84,6 @@ public class MovieController {
                 .toList();
 
         List<Language> allLanguages = languageService.findAll();
-        List<Language> remainingLanguages = allLanguages.stream()
-                .filter(l -> movieLanguages.stream().noneMatch(ml -> ml.getLanguage().getId() == l.getId()))
-                .toList();
 
         List<Keyword> allKeywords = keywordService.findAll();
         List<Keyword> remainingKeywords = allKeywords.stream()
@@ -108,7 +106,7 @@ public class MovieController {
 
         model.addAttribute("remainingGenres", remainingGenres);
         model.addAttribute("remainingCountries", remainingCountries);
-        model.addAttribute("remainingLanguages", remainingLanguages);
+        model.addAttribute("allLanguages", allLanguages);
         model.addAttribute("remainingKeywords", remainingKeywords);
         model.addAttribute("remainingCompanies", remainingCompanies);
 
@@ -125,14 +123,9 @@ public class MovieController {
                               @RequestParam(required = false) String release_date,
                               @RequestParam(required = false) List<Integer> genreIds,
                               @RequestParam(required = false) List<Integer> countryIds,
-                              @RequestParam(required = false) List<Integer> languageIds,
-                              @RequestParam(required = false) List<Integer> languageRoleIds,
+                              @RequestParam(required = false) List<String> languageRoleIds,
                               @RequestParam(required = false) List<Integer> keywordIds,
                               @RequestParam(required = false) List<Integer> companyIds,
-                              @RequestParam(required = false) List<Integer> castIds,
-                              @RequestParam(required = false) List<String> characterNames,
-                              @RequestParam(required = false) List<Integer> crewIds,
-                              @RequestParam(required = false) List<String> jobTitles,
                               HttpSession session) {
 
         Movie movie = movieService.findById(id);
@@ -163,36 +156,156 @@ public class MovieController {
         if (genreIds != null) {
             movieGenreService.updateMovieGenres(id, genreIds);
         }
+
         if (countryIds != null) {
             productionCountryService.updateMovieProductionCountries(id, countryIds);
         }
-        if (languageIds != null && languageRoleIds != null && languageIds.size() == languageRoleIds.size()) {
-            movieLanguagesService.updateMovieLanguages(id, languageIds, languageRoleIds);
+
+        if (languageRoleIds != null) {
+            List<Integer> languageIds = new ArrayList<>();
+            List<Integer> roleIds = new ArrayList<>();
+
+            for (String languageRoleId : languageRoleIds) {
+                String[] parts = languageRoleId.split(":");
+                if (parts.length == 2) {
+                    languageIds.add(Integer.parseInt(parts[0]));
+                    roleIds.add(Integer.parseInt(parts[1]));
+                }
+            }
+
+            if (!languageIds.isEmpty() && !roleIds.isEmpty()) {
+                movieLanguagesService.updateMovieLanguages(id, languageIds, roleIds);
+            }
         }
+
         if (keywordIds != null) {
             movieKeywordService.updateMovieKeywords(id, keywordIds);
         }
+
         if (companyIds != null) {
             movieCompanyService.updateMovieCompanies(id, companyIds);
         }
-        if (castIds != null && characterNames != null && castIds.size() == characterNames.size()) {
-            movieCastService.updateMovieCast(id, castIds, characterNames);
-        }
-        if (crewIds != null && jobTitles != null && crewIds.size() == jobTitles.size()) {
-            movieCrewService.updateMovieCrew(id, crewIds, jobTitles);
-        }
+
         return "redirect:/movie?id=" + id;
     }
 
+    @GetMapping("/createMovie")
+    public String createMovieForm(Model model, HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("loggedInUserId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+
+        boolean canModify = permissionService.isUserAuthorized(userId, Permission.permission_name.modify_movie);
+        if (!canModify) {
+            return "redirect:/";
+        }
+
+        List<Genre> allGenres = genreService.findAll();
+        List<Country> allCountries = countryService.findAll();
+        List<Language> allLanguages = languageService.findAll();
+        List<Keyword> allKeywords = keywordService.findAll();
+        List<Production_Company> allCompanies = productionCompanyService.findAll();
+
+        model.addAttribute("allGenres", allGenres);
+        model.addAttribute("allCountries", allCountries);
+        model.addAttribute("allLanguages", allLanguages);
+        model.addAttribute("allKeywords", allKeywords);
+        model.addAttribute("allCompanies", allCompanies);
+
+        model.addAttribute("movie", new Movie());
+
+        return "movie-create";
+    }
+
+    @PostMapping("/createMovie")
+    @Transactional
+    public String createMovie(@RequestParam(required = false) String title,
+                              @RequestParam(required = false) String description,
+                              @RequestParam(required = false) Integer budget,
+                              @RequestParam(required = false) String homepage,
+                              @RequestParam(required = false) String release_date,
+                              @RequestParam(required = false) List<Integer> genreIds,
+                              @RequestParam(required = false) List<Integer> countryIds,
+                              @RequestParam(required = false) List<String> languageRoleIds,
+                              @RequestParam(required = false) List<Integer> keywordIds,
+                              @RequestParam(required = false) List<Integer> companyIds,
+                              HttpSession session) {
+
+        Integer userId = (Integer) session.getAttribute("loggedInUserId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+
+        boolean canModify = permissionService.isUserAuthorized(userId, Permission.permission_name.modify_movie);
+        if (!canModify) {
+            return "redirect:/";
+        }
+
+        Movie movie = new Movie();
+        if (title != null) movie.setTitle(title);
+        if (description != null) movie.setOverview(description);
+        if (budget != null) movie.setBudget(budget);
+        if (homepage != null) movie.setHomepage(homepage);
+        if (release_date != null) {
+            movie.setRelease_date(Utils.stringToLocalDate(release_date));
+        }
+
+        movieService.save(movie);
+
+        if (genreIds != null) {
+            movieGenreService.updateMovieGenres(movie.getId(), genreIds);
+        }
+
+        if (countryIds != null) {
+            productionCountryService.updateMovieProductionCountries(movie.getId(), countryIds);
+        }
+
+        if (languageRoleIds != null) {
+            List<Integer> languageIds = new ArrayList<>();
+            List<Integer> roleIds = new ArrayList<>();
+
+            for (String languageRoleId : languageRoleIds) {
+                String[] parts = languageRoleId.split(":");
+                if (parts.length == 2) {
+                    languageIds.add(Integer.parseInt(parts[0]));
+                    roleIds.add(Integer.parseInt(parts[1]));
+                }
+            }
+
+            if (!languageIds.isEmpty() && !roleIds.isEmpty()) {
+                movieLanguagesService.updateMovieLanguages(movie.getId(), languageIds, roleIds);
+            }
+        }
+
+        if (keywordIds != null) {
+            movieKeywordService.updateMovieKeywords(movie.getId(), keywordIds);
+        }
+
+        if (companyIds != null) {
+            movieCompanyService.updateMovieCompanies(movie.getId(), companyIds);
+        }
+
+        return "redirect:/movie?id=" + movie.getId();
+    }
 
 
-
-    @GetMapping("/delMovie")
+    @PostMapping("/delMovie")
     public String deleteMovie(@RequestParam int id, HttpSession session){
         int userId = (int) session.getAttribute("loggedInUserId");
+
         if (permissionService.isUserAuthorized(userId, Permission.permission_name.remove_movie)){
+
+            movieGenreService.deleteByMovieId(id);
+            productionCountryService.deleteByMovieId(id);
+            movieLanguagesService.deleteByMovieId(id);
+            movieKeywordService.deleteByMovieId(id);
+            movieCompanyService.deleteByMovieId(id);
+
             movieService.deleteById(id);
         }
+
         return "redirect:/";
     }
+
 }
