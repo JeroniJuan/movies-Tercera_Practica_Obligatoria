@@ -25,7 +25,7 @@ public class CountryController {
         return "country-list";
     }
 
-    @GetMapping("/searchCountry")
+    @GetMapping("/editCountry")
     public String searchCountry(@RequestParam String countryName, Model model) {
         Country country = countryService.findByName(countryName);
 

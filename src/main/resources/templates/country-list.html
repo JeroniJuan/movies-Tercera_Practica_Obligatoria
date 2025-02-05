@@ -15,7 +15,7 @@
     <button type="submit">Crear un Nou País</button>
 </form>
 
-<form action="/searchCountry" method="get">
+<form action="/editCountry" method="get">
     <input type="text" name="countryName" placeholder="Escriu el nom del país" required>
     <button type="submit">Buscar</button>
 </form>
@@ -32,7 +32,7 @@
         <tr>
             <td><span th:text="${country.countryName}"></span></td>
             <td>
-                <a th:href="@{/searchCountry(countryName=${country.countryName})}">Veure / Editar</a> |
+                <a th:href="@{/editCountry(countryName=${country.countryName})}">Veure / Editar</a> |
                 <a th:href="@{/deleteCountry/{id}(id=${country.id})}">Eliminar</a>
             </td>
         </tr>
