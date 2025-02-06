@@ -1,6 +1,7 @@
 package com.esliceu.movies.models;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -36,6 +37,7 @@ public class Movie {
     @Column(precision = 12, scale = 6)
     private BigDecimal popularity;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate release_date;
 
     private long revenue;
