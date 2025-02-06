@@ -16,4 +16,7 @@ public interface MovieCompanyRepo extends JpaRepository<Movie_Company, Movie_Com
 
     Page<Movie_Company> findAll(Pageable pageable);
 
+    void deleteByMovieIdAndCompanyId(int movieId, int companyId);
+
+    void deleteByCompanyId(int id);
 }

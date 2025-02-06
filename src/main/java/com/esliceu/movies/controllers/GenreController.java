@@ -3,6 +3,7 @@ package com.esliceu.movies.controllers;
 import com.esliceu.movies.models.Genre;
 import com.esliceu.movies.models.Permission;
 import com.esliceu.movies.services.GenreService;
+import com.esliceu.movies.services.MovieGenreService;
 import com.esliceu.movies.services.PermissionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class GenreController {
 
     @Autowired
     private PermissionService permissionService;
+
+    @Autowired
+    private MovieGenreService movieGenreService;
 
     @GetMapping("/genre")
     public String listGenres(Model model) {
@@ -58,7 +62,10 @@ public class GenreController {
     public String deleteGenre(@PathVariable int id, HttpSession session) {
         int userId = (int) session.getAttribute("loggedInUserId");
         boolean canDelete = permissionService.isUserAuthorized(userId, Permission.permission_name.remove_movie);
-        if (canDelete) genreService.deleteById(id);
+        if (canDelete) {
+            movieGenreService.deleteByGenreId(id);
+            genreService.deleteById(id);
+        }
         return "redirect:/genre";
     }
 }

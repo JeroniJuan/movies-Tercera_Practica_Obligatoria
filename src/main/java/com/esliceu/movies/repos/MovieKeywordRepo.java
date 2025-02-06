@@ -9,4 +9,6 @@ public interface MovieKeywordRepo extends JpaRepository<Movie_Keywords, Integer>
     List<Movie_Keywords> findByMovieId(int id);
 
     void deleteByMovieId(int movieId);
+
+    void deleteByKeywordId(int id);
 }

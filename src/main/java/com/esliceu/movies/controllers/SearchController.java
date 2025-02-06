@@ -1,7 +1,9 @@
 package com.esliceu.movies.controllers;
 
 import com.esliceu.movies.models.Movie;
+import com.esliceu.movies.models.Movie_Cast;
 import com.esliceu.movies.models.Movie_Crew;
+import com.esliceu.movies.models.Person;
 import com.esliceu.movies.services.MovieCastService;
 import com.esliceu.movies.services.MovieCrewService;
 import com.esliceu.movies.services.MovieService;
@@ -36,8 +38,8 @@ public class SearchController {
 
     @GetMapping("/MovieSearchCast")
     public String getMovieSearchCast(Model model, @RequestParam("actor") String ActorName){
-        int actor_id = movieCastService.getActorId(ActorName);
-        List<Movie> movieList = movieService.findMoviesByCast(actor_id);
+        Person actor = personService.findPersonByName(ActorName);
+        List<Movie> movieList = movieService.findMoviesByCast(actor.getId());
         model.addAttribute("movies", movieList);
         return "movie-list";
     }

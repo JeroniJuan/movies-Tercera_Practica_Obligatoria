@@ -3,6 +3,7 @@ package com.esliceu.movies.controllers;
 import com.esliceu.movies.models.Language_Role;
 import com.esliceu.movies.models.Permission;
 import com.esliceu.movies.services.LanguageRoleService;
+import com.esliceu.movies.services.MovieLanguagesService;
 import com.esliceu.movies.services.PermissionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class LanguageRoleController {
 
     @Autowired
     private PermissionService permissionService;
+
+    @Autowired
+    private MovieLanguagesService movieLanguagesService;
 
     @GetMapping("/languageRole")
     public String listLanguageRoles(Model model) {
@@ -57,7 +61,10 @@ public class LanguageRoleController {
     public String deleteLanguageRole(@PathVariable int id, HttpSession session) {
         int userId = (int) session.getAttribute("loggedInUserId");
         boolean canDelete = permissionService.isUserAuthorized(userId, Permission.permission_name.remove_movie);
-        if (canDelete) languageRoleService.deleteById(id);
+        if (canDelete) {
+            movieLanguagesService.deleteByLanguageRole(id);
+            languageRoleService.deleteById(id);
+        }
         return "redirect:/languageRole";
     }
 }

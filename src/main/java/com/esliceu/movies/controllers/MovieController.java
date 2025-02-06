@@ -290,7 +290,7 @@ public class MovieController {
     }
 
 
-    @PostMapping("/delMovie")
+    @GetMapping("/delMovie")
     public String deleteMovie(@RequestParam int id, HttpSession session){
         int userId = (int) session.getAttribute("loggedInUserId");
 
@@ -301,6 +301,8 @@ public class MovieController {
             movieLanguagesService.deleteByMovieId(id);
             movieKeywordService.deleteByMovieId(id);
             movieCompanyService.deleteByMovieId(id);
+            movieCastService.deleteByMovieId(id);
+            movieCrewService.deleteByMovieId(id);
 
             movieService.deleteById(id);
         }

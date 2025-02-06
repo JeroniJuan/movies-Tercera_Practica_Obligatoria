@@ -2,6 +2,7 @@ package com.esliceu.movies.controllers;
 
 import com.esliceu.movies.models.Permission;
 import com.esliceu.movies.models.Production_Company;
+import com.esliceu.movies.services.MovieCompanyService;
 import com.esliceu.movies.services.PermissionService;
 import com.esliceu.movies.services.ProductionCompanyService;
 import jakarta.servlet.http.HttpSession;
@@ -18,6 +19,9 @@ public class ProductionCompanyController {
 
     @Autowired
     PermissionService permissionService;
+
+    @Autowired
+    private MovieCompanyService movieCompanyService;
 
     @GetMapping("/productionCompany")
     public String listProductionCompanies(Model model) {
@@ -53,7 +57,10 @@ public class ProductionCompanyController {
     public String deleteProductionCompany(@PathVariable int id, HttpSession session) {
         int userId = (int) session.getAttribute("loggedInUserId");
         boolean canDelete = permissionService.isUserAuthorized(userId, Permission.permission_name.remove_movie);
-        if (canDelete) productionCompanyService.deleteById(id);
+        if (canDelete) {
+            movieCompanyService.deleteByCompanyId(id);
+            productionCompanyService.deleteById(id);
+        }
         return "redirect:/productionCompany";
     }
 }

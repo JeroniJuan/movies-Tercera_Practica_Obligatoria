@@ -5,8 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PersonRepo extends JpaRepository<Person, Integer> {
-    Person findByPersonName(String personName);
+import java.util.List;
 
+public interface PersonRepo extends JpaRepository<Person, Integer> {
     Page<Person> findAll(Pageable pageable);
+
+    List<Person> findByPersonNameContainingIgnoreCase(String personName);
 }

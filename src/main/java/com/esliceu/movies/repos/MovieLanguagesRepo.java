@@ -10,4 +10,8 @@ public interface MovieLanguagesRepo extends JpaRepository<Movie_Languages, Integ
     List<Movie_Languages> findByMovieId(int id);
 
     void deleteByMovieId(int movieId);
+
+    void deleteByLanguageRoleId(int id);
+
+    void deleteByLanguageId(int id);
 }

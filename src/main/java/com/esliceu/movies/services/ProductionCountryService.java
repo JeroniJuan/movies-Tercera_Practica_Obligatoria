@@ -61,4 +61,8 @@ public class ProductionCountryService {
     public void deleteByMovieId(int id) {
         productionCountryRepo.deleteByMovieId(id);
     }
+    @Transactional
+    public void deleteByCountryId(int id) {
+        productionCountryRepo.deleteByCountryId(id);
+    }
 }

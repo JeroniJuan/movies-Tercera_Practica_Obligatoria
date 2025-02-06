@@ -21,9 +21,9 @@ public class MoviesApplication implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(
 				loginInterceptor
-		).addPathPatterns("/request", "/createCountry", "/deleteCountry", "/createLanguage", "/deleteLanguage",
-				"/createLanguageRole", "/deleteLanguageRole", "/createGenre", "/deleteGenre", "/deleteMovieCompany",
-				"/createMovieCompany", "/deleteProductionCompany", "/createProductionCompany", "/createPerson",
-				"/deletePerson", "/deleteGender", "createGender", "/manageRequests");
+		).addPathPatterns("/request", "/createCountry", "/deleteCountry/", "/createLanguage", "/deleteLanguage/",
+				"/createLanguageRole", "/deleteLanguageRole/", "/createGenre", "/deleteGenre/", "/deleteMovieCompany/",
+				"/createMovieCompany", "/deleteProductionCompany/", "/createProductionCompany/", "/createPerson",
+				"/deletePerson/", "/deleteGender/", "/createGender", "/manageRequests");
 	}
 }

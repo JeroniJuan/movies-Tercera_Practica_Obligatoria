@@ -14,4 +14,8 @@ public interface MovieCrewRepo extends JpaRepository<Movie_Crew, Long> {
     List<Movie_Crew> findByMovieId(int id);
 
     void deleteByMovieId(int movieId);
+
+    void deleteByMovie_Id(int id);
+
+    void deleteByPersonId(int id);
 }

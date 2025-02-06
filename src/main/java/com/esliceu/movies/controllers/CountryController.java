@@ -4,6 +4,7 @@ import com.esliceu.movies.models.Country;
 import com.esliceu.movies.models.Permission;
 import com.esliceu.movies.services.CountryService;
 import com.esliceu.movies.services.PermissionService;
+import com.esliceu.movies.services.ProductionCountryService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ public class CountryController {
     @Autowired
     private PermissionService permissionService;
 
+    @Autowired
+    ProductionCountryService productionCountryService;
+
     @GetMapping("/country")
     public String listCountries(Model model) {
         model.addAttribute("countries", countryService.findAll());
@@ -30,9 +34,7 @@ public class CountryController {
         Country country = countryService.findByName(countryName);
 
         if (country == null) {
-            country = new Country();
-            country.setCountryName(countryName);
-            countryService.save(country);
+            return "country-detail";
         }
 
         model.addAttribute("country", country);
@@ -64,7 +66,10 @@ public class CountryController {
     public String deleteCountry(@PathVariable int id, HttpSession session) {
         int userId = (int) session.getAttribute("loggedInUserId");
         boolean canDelete = permissionService.isUserAuthorized(userId, Permission.permission_name.remove_movie);
-        if (canDelete) countryService.deleteById(id);
+        if (canDelete) {
+            productionCountryService.deleteByCountryId(id);
+            countryService.deleteById(id);
+        }
         return "redirect:/country";
     }
 }

@@ -52,8 +52,12 @@ public class MovieCompanyController {
     }
 
     @GetMapping("/deleteMovieCompany/{movieId}/{companyId}")
-    public String deleteMovieCompany(@PathVariable int movieId, @PathVariable int companyId) {
-        movieCompanyService.deleteById(movieId, companyId);
+    public String deleteMovieCompany(@PathVariable int movieId, @PathVariable int companyId, HttpSession session) {
+        int userId = (int) session.getAttribute("loggedInUserId");
+        boolean canDelete = permissionService.isUserAuthorized(userId, Permission.permission_name.remove_movie);
+        if (canDelete) {
+            movieCompanyService.deleteById(movieId, companyId);
+        }
         return "redirect:/movieCompany";
     }
 

@@ -21,7 +21,7 @@
             <a class="movieTitle" th:href="@{/movie(id=${movie.movie_id})}">[[${movie.title}]]</a>
         </td>
         <td>
-            <form th:action="@{/delMovie}" method="post">
+            <form th:action="@{/delMovie}" method="get">
                 <input type="hidden" name="id" th:value="${movie.movie_id}" />
                 <button class="deleteBtn">Borrar pel·lícula</button>
             </form>

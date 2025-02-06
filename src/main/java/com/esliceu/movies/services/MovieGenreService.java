@@ -64,4 +64,9 @@ public class MovieGenreService {
     public void deleteByMovieId(int id) {
         movieGenresRepo.deleteByMovieId(id);
     }
+
+    @Transactional
+    public void deleteByGenreId(int id) {
+        movieGenresRepo.deleteByGenreId(id);
+    }
 }

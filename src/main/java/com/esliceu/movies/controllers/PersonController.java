@@ -1,6 +1,8 @@
 package com.esliceu.movies.controllers;
 
 import com.esliceu.movies.models.Permission;
+import com.esliceu.movies.services.MovieCastService;
+import com.esliceu.movies.services.MovieCrewService;
 import org.springframework.data.domain.Pageable;
 import com.esliceu.movies.models.Person;
 import com.esliceu.movies.services.PermissionService;
@@ -20,6 +22,12 @@ public class PersonController {
 
     @Autowired
     private PermissionService permissionService;
+
+    @Autowired
+    private MovieCastService movieCastService;
+
+    @Autowired
+    private MovieCrewService movieCrewService;
 
     @GetMapping("/person")
     public String listPersons(Model model, Pageable pageable) {
@@ -68,7 +76,11 @@ public class PersonController {
     public String deletePerson(@PathVariable int id, HttpSession session) {
         int userId = (int) session.getAttribute("loggedInUserId");
         boolean canDelete = permissionService.isUserAuthorized(userId, Permission.permission_name.remove_movie);
-        if (canDelete) personService.deleteById(id);
+        if (canDelete) {
+            movieCastService.deleteByPersonId(id);
+            movieCrewService.deleteByPersonId(id);
+            personService.deleteById(id);
+        }
         return "redirect:/person";
     }
 }

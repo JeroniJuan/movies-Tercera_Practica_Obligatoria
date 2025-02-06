@@ -26,11 +26,7 @@ public class MovieService {
     }
 
     public List<Movie> findMoviesByCharacter(String character_name){
-        return movieRepo.findByMovieCastsCharacterName(character_name);
-    }
-
-    public List<Movie> findMoviesByCrew(int person_id){
-        return movieRepo.findByMovieCrewsPersonId(person_id);
+        return movieRepo.findByMovieCastsCharacterNameContainingIgnoreCase(character_name);
     }
 
     public Movie save(Movie movie) {

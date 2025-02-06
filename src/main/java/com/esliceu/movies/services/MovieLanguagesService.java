@@ -69,4 +69,12 @@ public class MovieLanguagesService {
     public void deleteByMovieId(int id) {
         movieLanguagesRepo.deleteByMovieId(id);
     }
+    @Transactional
+    public void deleteByLanguageId(int id) {
+        movieLanguagesRepo.deleteByLanguageId(id);
+    }
+    @Transactional
+    public void deleteByLanguageRole(int id) {
+        movieLanguagesRepo.deleteByLanguageRoleId(id);
+    }
 }

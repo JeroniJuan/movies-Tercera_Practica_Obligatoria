@@ -22,7 +22,7 @@
 
 <p th:if="${param.success != null}" style="color:green;">Permís sol·licitat correctament!</p>
 
-<div th:if="${userId == 2}" class="pending-requests">
+<div th:if="${userRole == 'Admin'}" class="pending-requests">
     <h2>Gestionar sol·licituds pendents</h2>
     <table>
         <thead>

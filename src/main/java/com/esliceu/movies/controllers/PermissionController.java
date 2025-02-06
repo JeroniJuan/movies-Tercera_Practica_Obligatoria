@@ -30,7 +30,9 @@ public class PermissionController {
     @GetMapping("/request")
     public String requestPermissionForm(Model model, HttpSession session) {
         int userId = (int) session.getAttribute("loggedInUserId");
+        String userRole = userService.findById(userId).getRole();
         model.addAttribute("userId", userId);
+        model.addAttribute("userRole", userRole);
         model.addAttribute("permissions", permissionService.findAll());
 
         if (userId == 2) {

@@ -3,7 +3,9 @@ package com.esliceu.movies.controllers;
 import com.esliceu.movies.models.Gender;
 import com.esliceu.movies.models.Permission;
 import com.esliceu.movies.services.GenderService;
+import com.esliceu.movies.services.MovieCastService;
 import com.esliceu.movies.services.PermissionService;
+import com.esliceu.movies.services.PersonService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,9 @@ public class GenderController {
 
     @Autowired
     private PermissionService permissionService;
+
+    @Autowired
+    private MovieCastService movieCastService;
 
     @GetMapping("/gender")
     public String listGenders(Model model) {
@@ -57,7 +62,10 @@ public class GenderController {
     public String deleteGender(@PathVariable int id, HttpSession session) {
         int userId = (int) session.getAttribute("loggedInUserId");
         boolean canDelete = permissionService.isUserAuthorized(userId, Permission.permission_name.remove_movie);
-        if (canDelete) genderService.deleteById(id);
+        if (canDelete) {
+            movieCastService.deleteByGenderId(id);
+            genderService.deleteById(id);
+        }
         return "redirect:/gender";
     }
 }

@@ -47,6 +47,7 @@ public class MovieCompanyService {
     }
 
     public void deleteById(int movieId, int companyId) {
+        movieCompanyRepo.deleteByMovieIdAndCompanyId(movieId, companyId);
     }
 
     public Movie_Company findById(int movieId, int companyId) {
@@ -88,5 +89,9 @@ public class MovieCompanyService {
     @Transactional
     public void deleteByMovieId(int id) {
         movieCompanyRepo.deleteByMovieId(id);
+    }
+
+    public void deleteByCompanyId(int id) {
+        movieCompanyRepo.deleteByCompanyId(id);
     }
 }

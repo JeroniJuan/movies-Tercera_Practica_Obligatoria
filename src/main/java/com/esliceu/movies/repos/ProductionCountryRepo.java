@@ -10,4 +10,6 @@ public interface ProductionCountryRepo extends JpaRepository<Production_Country,
     List<Production_Country> findByMovieId(int id);
 
     void deleteByMovieId(int movieId);
+
+    void deleteByCountryId(int id);
 }

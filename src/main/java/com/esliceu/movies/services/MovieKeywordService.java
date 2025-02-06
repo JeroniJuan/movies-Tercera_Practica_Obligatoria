@@ -60,4 +60,8 @@ public class MovieKeywordService {
     public void deleteByMovieId(int id) {
         movieKeywordsRepo.deleteByMovieId(id);
     }
+    @Transactional
+    public void deleteByKeywordId(int id) {
+        movieKeywordsRepo.deleteByKeywordId(id);
+    }
 }
