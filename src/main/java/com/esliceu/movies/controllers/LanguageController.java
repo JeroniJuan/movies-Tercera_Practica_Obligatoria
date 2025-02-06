@@ -22,15 +22,15 @@ public class LanguageController {
     @GetMapping("/language")
     public String listLanguages(Model model) {
         model.addAttribute("languages", languageService.findAll());
-        return "language-list.html";
+        return "language-list";
     }
 
-    @GetMapping("/searchLanguage")
+    @GetMapping("/editLanguage")
     public String searchLanguage(@RequestParam String languageName, Model model) {
         Language language = languageService.findByName(languageName);
 
         model.addAttribute("language", language);
-        return "language-detail.html";
+        return "language-detail";
     }
 
     @GetMapping("/createLanguage")

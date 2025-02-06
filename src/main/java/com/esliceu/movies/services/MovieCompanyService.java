@@ -7,6 +7,8 @@ import com.esliceu.movies.models.Production_Company;
 import com.esliceu.movies.repos.MovieCompanyRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -26,6 +28,10 @@ public class MovieCompanyService {
 
     public List<Movie_Company> findAll() {
         return movieCompanyRepo.findAll();
+    }
+
+    public Page<Movie_Company> findAll(Pageable pageable) {
+        return movieCompanyRepo.findAll(pageable);
     }
 
     public Movie_Company findById(Movie_CompanyKey id) {

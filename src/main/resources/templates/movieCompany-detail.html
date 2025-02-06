@@ -11,7 +11,7 @@
 
 <form action="/editMovieCompany" method="post">
     <input type="hidden" name="id.movieId" th:value="${movieCompany.movie.id}" />
-    <input type="hidden" name="id.companyId" th:value="${movieCompany.companyId.id}" />
+    <input type="hidden" name="id.companyId" th:value="${movieCompany.company.id}" />
 
     <label for="movieId">ID de la Pel·lícula:</label>
     <input type="number" id="movieId" name="movie.id" th:value="${movieCompany.movie.id}" readonly>

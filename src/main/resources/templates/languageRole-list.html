@@ -10,7 +10,7 @@
 <h1>Llista de Rols d'Idioma</h1>
 
 <a href="/crud">Retrorna a la gestio de dades.</a>
-
+<a href="/createLanguageRole">Crear un nou rol</a>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -21,13 +21,13 @@
         <td th:text="${languageRole.id}"></td>
         <td th:text="${languageRole.languageRole}"></td>
         <td>
-            <a th:href="@{/searchLanguageRole(roleName=${languageRole.languageRole})}">Veure</a>
+            <a th:href="@{/editLanguageRole(roleName=${languageRole.languageRole})}">Veure</a>
             <a th:href="@{/deleteLanguageRole/{id}(id=${languageRole.id})}">Eliminar</a>
         </td>
     </tr>
 </table>
 
 <br>
-<a href="/createLanguageRole">Crear un nou rol</a>
+
 </body>
 </html>

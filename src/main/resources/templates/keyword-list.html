@@ -9,6 +9,7 @@
 <body>
 <h1>Llista de Paraules Clau</h1>
 <a href="/crud">Retorna a la gestio de dades</a>
+<a href="/createKeyword">Crear una nova paraula clau</a>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -19,13 +20,12 @@
         <td th:text="${keyword.id}"></td>
         <td th:text="${keyword.keywordName}"></td>
         <td>
-            <a th:href="@{/searchKeyword(keywordName=${keyword.keywordName})}">Veure</a>
+            <a th:href="@{/editKeyword(keywordName=${keyword.keywordName})}">Veure</a>
             <a th:href="@{/deleteKeyword/{id}(id=${keyword.id})}">Eliminar</a>
         </td>
     </tr>
 </table>
 
 <br>
-<a href="/createKeyword">Crear una nova paraula clau</a>
 </body>
 </html>

@@ -3,28 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Llista de Companyies per Pel·lícula</title>
+    <title>Companyies de Pel·lícules</title>
     <link rel="stylesheet" href="/list.css">
 </head>
 <body>
-<h1>Llista de Companyies per Pel·lícula</h1>
-<a href="/crud">Retorna a la gestio de dades</a>
-<table border="1">
+<h1>Companyies de Pel·lícules</h1>
+<a href="/crud">Retorna a la gestió de dades</a>
+<a href="/createMovieCompany">Afegir una nova companyia</a>
+<br><br>
+
+<table>
+    <thead>
     <tr>
         <th>ID Pel·lícula</th>
         <th>ID Companyia</th>
         <th>Accions</th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="movieCompany : ${movieCompanies}">
         <td th:text="${movieCompany.movie.id}"></td>
         <td th:text="${movieCompany.company.id}"></td>
         <td>
+            <a th:href="@{/editMovieCompany/{movieId}/{companyId}(movieId=${movieCompany.movie.id}, companyId=${movieCompany.company.id})}">Veure Detalls</a> |
             <a th:href="@{/deleteMovieCompany/{movieId}/{companyId}(movieId=${movieCompany.movie.id}, companyId=${movieCompany.company.id})}">Eliminar</a>
         </td>
     </tr>
+    </tbody>
 </table>
 
 <br>
-<a href="/createMovieCompany">Assignar una nova companyia</a>
+<a href="/movieCompany">Tornar a la llista de companyies</a>
 </body>
 </html>

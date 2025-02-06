@@ -9,6 +9,7 @@
 <body>
 <h1>Llista de Gèneres</h1>
 <a href="/crud">Retorna a la gestio de dades</a>
+<a href="/createGenre">Crear un nou gènere</a>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -19,13 +20,13 @@
         <td th:text="${genre.id}"></td>
         <td th:text="${genre.genreName}"></td>
         <td>
-            <a th:href="@{/searchGenre(genreName=${genre.genreName})}">Veure</a>
+            <a th:href="@{/editGenre(genreName=${genre.genreName})}">Veure</a>
             <a th:href="@{/deleteGenre/{id}(id=${genre.id})}">Eliminar</a>
         </td>
     </tr>
 </table>
 
 <br>
-<a href="/createGenre">Crear un nou gènere</a>
+
 </body>
 </html>

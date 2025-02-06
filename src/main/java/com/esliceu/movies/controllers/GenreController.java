@@ -25,7 +25,7 @@ public class GenreController {
         return "genre-list";
     }
 
-    @GetMapping("/searchGenre")
+    @GetMapping("/editGenre")
     public String searchGenre(@RequestParam String genreName, Model model) {
         Genre genre = genreService.findByName(genreName);
 

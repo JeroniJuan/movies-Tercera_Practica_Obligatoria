@@ -10,6 +10,8 @@ public class Movie_CompanyKey implements Serializable {
     private int company_id;
 
     public Movie_CompanyKey(int movieId, int companyId) {
+        this.movie_id = movieId;
+        this.company_id = companyId;
     }
 
     public Movie_CompanyKey() {

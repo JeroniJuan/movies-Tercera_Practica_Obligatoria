@@ -13,10 +13,10 @@
     <input type="hidden" name="id" th:value="${language.id}" />
 
     <label for="languageName">Nom de l'Idioma:</label>
-    <input type="text" id="languageName" name="language_name" th:value="${language.language_name}" required>
+    <input type="text" id="languageName" name="language_name" th:value="${language.languageName}" required>
 
     <label for="languageCode">Codi de l'Idioma:</label>
-    <input type="text" id="languageCode" name="language_code" th:value="${language.language_code}" required>
+    <input type="text" id="languageCode" name="language_code" th:value="${language.languageCode}" required>
 
     <button type="submit">Guardar</button>
     <a th:href="@{/deleteLanguage/{id}(id=${language.id})}">Eliminar</a>

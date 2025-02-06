@@ -25,11 +25,9 @@ public class LanguageRoleController {
         return "languageRole-list";
     }
 
-    @GetMapping("/searchLanguageRole")
+    @GetMapping("/editLanguageRole")
     public String searchLanguageRole(@RequestParam String roleName, Model model) {
         Language_Role languageRole = languageRoleService.findByName(roleName);
-
-
         model.addAttribute("languageRole", languageRole);
         return "languageRole-detail";
     }

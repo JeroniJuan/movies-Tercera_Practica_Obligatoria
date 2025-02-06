@@ -9,6 +9,7 @@
 <body>
 <h1>Llista d'Idiomes</h1>
 <a href="/crud">Retorna a la gestio de dades</a>
+<a href="/createLanguage">Crea un nou idioma</a>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -21,13 +22,12 @@
         <td th:text="${language.languageName}"></td>
         <td th:text="${language.languageCode}"></td>
         <td>
-            <a th:href="@{/searchLanguage(languageName=${language.language_name})}">Veure</a>
+            <a th:href="@{/editLanguage(languageName=${language.languageName})}">Veure</a>
             <a th:href="@{/deleteLanguage/{id}(id=${language.id})}">Eliminar</a>
         </td>
     </tr>
 </table>
 
 <br>
-<a href="/createLanguage">Crear un nou idioma</a>
 </body>
 </html>

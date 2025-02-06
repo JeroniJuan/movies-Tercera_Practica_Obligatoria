@@ -54,8 +54,10 @@ public class GenderController {
     }
 
     @GetMapping("/deleteGender/{id}")
-    public String deleteGender(@PathVariable int id) {
-        genderService.deleteById(id);
+    public String deleteGender(@PathVariable int id, HttpSession session) {
+        int userId = (int) session.getAttribute("loggedInUserId");
+        boolean canDelete = permissionService.isUserAuthorized(userId, Permission.permission_name.remove_movie);
+        if (canDelete) genderService.deleteById(id);
         return "redirect:/gender";
     }
 }

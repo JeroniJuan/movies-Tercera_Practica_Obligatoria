@@ -25,7 +25,7 @@ public class KeywordController {
         return "keyword-list";
     }
 
-    @GetMapping("/searchKeyword")
+    @GetMapping("/editKeyword")
     public String searchKeyword(@RequestParam String keywordName, Model model) {
         Keyword keyword = keywordService.findByName(keywordName);
 
