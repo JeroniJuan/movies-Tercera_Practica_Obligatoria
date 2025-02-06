@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Permisos del Usuari</title>
+  <link rel="stylesheet" href="user-permissions.css">
+</head>
+<body>
+<div class="container">
+  <h2>Permisos del Usuari</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Permis</th>
+      <th>Estat</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="permission : ${permissionList}">
+      <td th:text="${permission.id}"></td>
+      <td th:text="${permission.permission.permissionName}"></td>
+      <td th:text="${permission.state}" th:classappend="${permission.state.name().toLowerCase()}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

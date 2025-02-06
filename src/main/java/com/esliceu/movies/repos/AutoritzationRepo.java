@@ -9,5 +9,7 @@ import java.util.List;
 public interface AutoritzationRepo extends JpaRepository<Autoritzation, Integer> {
 
     List<Autoritzation> findByState(Autoritzation.State state);
+
+    List<Autoritzation> findByUserId(int userId);
 }
 

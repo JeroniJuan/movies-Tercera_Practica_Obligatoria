@@ -1,6 +1,7 @@
 package com.esliceu.movies.controllers;
 
 import com.esliceu.movies.models.Autoritzation;
+import com.esliceu.movies.models.Permission;
 import com.esliceu.movies.models.User;
 import com.esliceu.movies.services.AutoritzationService;
 import com.esliceu.movies.services.PermissionService;
@@ -69,5 +70,13 @@ public class PermissionController {
             autoritzationService.save(autoritzation);
         }
         return "redirect:/request";
+    }
+    @GetMapping("/checkPermissions")
+    public String getPermissions(HttpSession session, Model model){
+        int userId = (int) session.getAttribute("loggedInUserId");
+        User user = userService.findById(userId);
+        List<Autoritzation> permissionList = autoritzationService.findByUserId(userId);
+        model.addAttribute("permissionList", permissionList);
+        return "user-permissions";
     }
 }
