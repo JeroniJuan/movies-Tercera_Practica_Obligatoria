@@ -16,13 +16,39 @@
                     th:text="${permission.permissionName}"></option>
         </select>
     </div>
-    <div>
-        <input type="hidden" id="userId" name="userId">
-    </div>
+    <input type="hidden" id="userId" name="userId" th:value="${userId}">
     <button type="submit">Sol·licitar</button>
 </form>
 
 <p th:if="${param.success != null}" style="color:green;">Permís sol·licitat correctament!</p>
+
+<div th:if="${userId == 2}" class="pending-requests">
+    <h2>Gestionar sol·licituds pendents</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Usuari</th>
+            <th>Permís</th>
+            <th>Accions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="request : ${pendingRequests}">
+            <td th:text="${request.user.userName}"></td>
+            <td th:text="${request.permission.permissionName}"></td>
+            <td>
+                <form th:action="@{/manage-requests}" method="post">
+                    <input type="hidden" name="requestId" th:value="${request.id}">
+                    <div class="action-buttons">
+                        <button type="submit" name="action" value="accept" class="accept-btn">Acceptar</button>
+                        <button type="submit" name="action" value="reject" class="reject-btn">Rebutjar</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>

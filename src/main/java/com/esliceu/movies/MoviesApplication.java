@@ -24,6 +24,6 @@ public class MoviesApplication implements WebMvcConfigurer {
 		).addPathPatterns("/request", "/createCountry", "/deleteCountry", "/createLanguage", "/deleteLanguage",
 				"/createLanguageRole", "/deleteLanguageRole", "/createGenre", "/deleteGenre", "/deleteMovieCompany",
 				"/createMovieCompany", "/deleteProductionCompany", "/createProductionCompany", "/createPerson",
-				"/deletePerson", "/deleteGender", "createGender");
+				"/deletePerson", "/deleteGender", "createGender", "/manageRequests");
 	}
 }
