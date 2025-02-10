@@ -146,6 +146,37 @@
             </select>
         </div>
     </div>
+    <h2>Actors</h2>
+    <div style="display: flex; gap: 20px; align-items: center;">
+        <div>
+            <label>Actors Incluidos</label>
+            <select name="actorNames" id="actorNames" multiple></select>
+            <select name="actorGenderIds" id="actorGenderIds" style="display: none;" multiple></select>
+            <select name="actorCharacterNames" id="actorCharacterNames" style="display: none;" multiple></select>
+        </div>
+
+        <div style="display: flex; flex-direction: column;">
+            <button type="button" onclick="moveActor()">⬅</button>
+            <button type="button" onclick="removeActor()">➜</button>
+        </div>
+
+        <div>
+            <label>Nombre del Actor</label>
+            <input type="text" id="actorName" placeholder="Escribe el nombre del actor" />
+
+            <label>Selecciona el Género</label>
+            <select id="actorGender">
+                <option value="0">Unspecified</option>
+                <option value="1">Female</option>
+                <option value="2">Male</option>
+            </select>
+
+            <label>Nombre del Personaje</label>
+            <input type="text" id="actorCharacterName" />
+        </div>
+    </div>
+
+
     <button type="submit">Desar nova pel·lícula</button>
 </form>
 </body>

@@ -171,17 +171,60 @@
         </div>
     </div>
 
-    <h2>Repartiment</h2>
+    <h2>Actors</h2>
     <div style="display: flex; gap: 20px; align-items: center;">
         <div>
-            <label>Repartiment Inclòs</label>
-            <select name="castIds" id="castIds" multiple>
-                <option th:each="cast : ${movieCasts}" th:value="${cast.person.id}"
-                        th:text="${cast.person.personName + ' - ' + cast.characterName}">
-                </option>
+            <label>Actors Incluidos</label>
+            <select name="actorNames" id="actorNames" multiple>
+                <th:block th:each="movieCast : ${movieCasts}">
+                    <option th:text="${movieCast.person.personName} + ' - ' + ${movieCast.characterName}"
+                            selected="selected">
+                    </option>
+                </th:block>
+            </select>
+
+            <select name="actorGenderIds" id="actorGenderIds" style="display: none;" multiple>
+                <th:block th:each="movieCast : ${movieCasts}">
+                    <option th:value="${movieCast.gender.id}"
+                            th:text="${movieCast.gender.genderName}"
+                            selected="selected">
+                    </option>
+                </th:block>
+            </select>
+
+            <select name="actorCharacterNames" id="actorCharacterNames" style="display: none;" multiple>
+                <th:block th:each="movieCast : ${movieCasts}">
+                    <option th:value="${movieCast.characterName}"
+                            th:text="${movieCast.characterName}"
+                            selected="selected">
+                    </option>
+                </th:block>
             </select>
         </div>
+
+        <div style="display: flex; flex-direction: column;">
+            <button type="button" onclick="moveActor()">⬅</button>
+            <button type="button" onclick="removeActor()">➜</button>
+        </div>
+
+        <div>
+            <label>Nombre del Actor</label>
+            <input type="text" id="actorName" placeholder="Escribe el nombre del actor" />
+
+            <label>Selecciona el Género</label>
+            <select id="actorGender">
+                <option value="0">Unspecified</option>
+                <option value="1">Female</option>
+                <option value="2">Male</option>
+            </select>
+
+            <label>Nombre del Personaje</label>
+            <input type="text" id="actorCharacterName" />
+        </div>
     </div>
+
+
+
 
     <h2>Equip Tècnic</h2>
     <div style="display: flex; gap: 20px; align-items: center;">

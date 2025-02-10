@@ -50,6 +50,9 @@ public class MovieController {
     GenreService genreService;
 
     @Autowired
+    GenderService genderService;
+
+    @Autowired
     CountryService countryService;
 
     @Autowired
@@ -126,6 +129,9 @@ public class MovieController {
                               @RequestParam(required = false) List<String> languageRoleIds,
                               @RequestParam(required = false) List<Integer> keywordIds,
                               @RequestParam(required = false) List<Integer> companyIds,
+                              @RequestParam(required = false) List<String> actorNames,
+                              @RequestParam(required = false) List<Integer> actorGenderIds,
+                              @RequestParam(required = false) List<String> actorCharacterNames,
                               HttpSession session) {
 
         Movie movie = movieService.findById(id);
@@ -154,11 +160,11 @@ public class MovieController {
         movieService.save(movie);
 
         if (genreIds != null) {
-            movieGenreService.updateMovieGenres(id, genreIds);
+            movieGenreService.updateMovieGenres(movie.getId(), genreIds);
         }
 
         if (countryIds != null) {
-            productionCountryService.updateMovieProductionCountries(id, countryIds);
+            productionCountryService.updateMovieProductionCountries(movie.getId(), countryIds);
         }
 
         if (languageRoleIds != null) {
@@ -174,20 +180,61 @@ public class MovieController {
             }
 
             if (!languageIds.isEmpty() && !roleIds.isEmpty()) {
-                movieLanguagesService.updateMovieLanguages(id, languageIds, roleIds);
+                movieLanguagesService.updateMovieLanguages(movie.getId(), languageIds, roleIds);
             }
         }
 
         if (keywordIds != null) {
-            movieKeywordService.updateMovieKeywords(id, keywordIds);
+            movieKeywordService.updateMovieKeywords(movie.getId(), keywordIds);
         }
 
         if (companyIds != null) {
-            movieCompanyService.updateMovieCompanies(id, companyIds);
+            movieCompanyService.updateMovieCompanies(movie.getId(), companyIds);
         }
 
-        return "redirect:/movie?id=" + id;
+        if (actorNames != null && actorGenderIds != null && actorCharacterNames != null) {
+            if (actorNames.size() == actorGenderIds.size() && actorNames.size() == actorCharacterNames.size()) {
+                movieCastService.deleteByMovieId(movie.getId());
+
+                for (int i = 0; i < actorNames.size(); i++) {
+                    String actorNameWithCharacter = actorNames.get(i);
+
+                    String actorName = actorNameWithCharacter.split(" - ")[0];
+
+                    Integer genderId = actorGenderIds.get(i);
+                    String characterName = actorCharacterNames.get(i);
+
+                    System.out.println("Actor name = " + actorName);
+
+                    Person actor = personService.findPersonByName(actorName);
+                    if (actor == null) {
+                        continue;
+                    }
+
+                    Gender gender = genderService.findById(genderId);
+
+                    if (actor != null && gender != null) {
+                        Movie_Cast movieCast = new Movie_Cast();
+                        Movie_CastKey movieCastKey = new Movie_CastKey(movie.getId(), actor.getId());
+                        movieCast.setId(movieCastKey);
+                        movieCast.setMovie(movie);
+                        movieCast.setPerson(actor);
+                        movieCast.setGender(gender);
+                        movieCast.setCharacterName(characterName);
+                        movieCast.setCast_order(i);
+
+                        movieCastService.save(movieCast);
+                    }
+                }
+            } else {
+                return "redirect:/";
+            }
+        }
+
+        return "redirect:/movie?id=" + movie.getId();
     }
+
+
 
     @GetMapping("/createMovie")
     public String createMovieForm(Model model, HttpSession session) {
@@ -230,6 +277,9 @@ public class MovieController {
                               @RequestParam(required = false) List<String> languageRoleIds,
                               @RequestParam(required = false) List<Integer> keywordIds,
                               @RequestParam(required = false) List<Integer> companyIds,
+                              @RequestParam(required = false) List<String> actorNames,
+                              @RequestParam(required = false) List<Integer> actorGenderIds,
+                              @RequestParam(required = false) List<String> actorCharacterNames,
                               HttpSession session) {
 
         Integer userId = (Integer) session.getAttribute("loggedInUserId");
@@ -286,8 +336,39 @@ public class MovieController {
             movieCompanyService.updateMovieCompanies(movie.getId(), companyIds);
         }
 
+        if (actorNames != null && actorGenderIds != null && actorCharacterNames != null) {
+            for (int i = 0; i < actorNames.size(); i++) {
+                String actorName = actorNames.get(i);
+                Integer genderId = actorGenderIds.get(i);
+                String characterName = actorCharacterNames.get(i);
+
+                Person actor = personService.findPersonByName(actorName);
+                if (actor == null) {
+                    continue;
+                }
+
+                Gender gender = genderService.findById(genderId);
+
+                if (actor != null && gender != null) {
+                    Movie_Cast movieCast = new Movie_Cast();
+                    Movie_CastKey movieCastKey = new Movie_CastKey(movie.getId(), actor.getId());
+                    movieCast.setId(movieCastKey);
+                    movieCast.setMovie(movie);
+                    movieCast.setPerson(actor);
+                    movieCast.setGender(gender);
+                    movieCast.setCharacterName(characterName);
+                    movieCast.setCast_order(i);
+
+                    movieCastService.save(movieCast);
+                }
+            }
+        }
+
         return "redirect:/movie?id=" + movie.getId();
     }
+
+
+
 
 
     @GetMapping("/delMovie")

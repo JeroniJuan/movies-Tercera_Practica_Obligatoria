@@ -9,34 +9,64 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class MovieCastService {
     @Autowired
     MovieCastRepo movieCastRepo;
 
+    @Autowired
+    MovieService movieService;
+
+    @Autowired
+    PersonService personService;
+
     public List<Movie_Cast> findByMovieId(int movieId) {
         return movieCastRepo.findByMovieId(movieId);
     }
 
-    public void updateMovieCast(int movieId, List<Movie_Cast> movieCastList) {
-        movieCastRepo.deleteByMovie_Id(movieId);
-        for (Movie_Cast cast : movieCastList) {
-            cast.setId(new Movie_CastKey(movieId, cast.getPerson().getId()));
-            movieCastRepo.save(cast);
+    @Transactional
+    public void updateMovieCast(int movieId, List<String> castIds) {
+        Movie movie = movieService.findById(movieId);
+
+        List<Movie_Cast> currentCast = movieCastRepo.findByMovieId(movieId);
+        Set<String> newCastSet = new HashSet<>(castIds);
+
+        for (Movie_Cast mc : currentCast) {
+            String currentKey = mc.getPerson().getPersonName() + ":" + mc.getCharacterName();
+            if (!newCastSet.contains(currentKey)) {
+                movieCastRepo.delete(mc);
+            }
         }
-    }
 
-    public void updateMovieCast(int movieId, List<Integer> personIds, List<String> characterNames) {
-        movieCastRepo.deleteByMovie_Id(movieId);
+        for (String castEntry : castIds) {
+            String[] parts = castEntry.split(":");
+            if (parts.length == 2) {
+                String actorName = parts[0];
+                String characterName = parts[1];
 
-        for (int i = 0; i < personIds.size(); i++) {
-            Movie_Cast movieCast = new Movie_Cast();
-            movieCast.setMovie(new Movie(movieId));
-            movieCast.setPerson(new Person(personIds.get(i)));
-            movieCast.setCharacterName(characterNames.get(i));
-            movieCastRepo.save(movieCast);
+                Person person = personService.findPersonByName(actorName);
+                if (person == null) {
+                    person = new Person();
+                    person.setPersonName(actorName);
+                    personService.save(person);
+                }
+
+                boolean exists = currentCast.stream()
+                        .anyMatch(mc -> mc.getPerson().getPersonName().equals(actorName)
+                                && mc.getCharacterName().equals(characterName));
+
+                if (!exists) {
+                    Movie_Cast movieCast = new Movie_Cast();
+                    movieCast.setMovie(movie);
+                    movieCast.setPerson(person);
+                    movieCast.setCharacterName(characterName);
+                    save(movieCast);
+                }
+            }
         }
     }
 
@@ -61,5 +91,9 @@ public class MovieCastService {
     @Transactional
     public void deleteByPersonId(int id) {
         movieCastRepo.deleteByPersonId(id);
+    }
+
+    public void save(Movie_Cast movieCast) {
+        movieCastRepo.save(movieCast);
     }
 }

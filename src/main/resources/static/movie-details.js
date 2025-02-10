@@ -82,3 +82,46 @@ function selectAllOptions() {
     document.addEventListener('DOMContentLoaded', function() {
         updateHiddenSelect();
     });
+    function moveActor() {
+        let actorNameInput = document.getElementById("actorName");
+        let actorName = actorNameInput.value.trim();
+
+        let genderSelect = document.getElementById("actorGender");
+        let genderId = genderSelect.value;
+
+        let characterNameInput = document.getElementById("actorCharacterName");
+        let characterName = characterNameInput.value.trim();
+
+        if (actorName === "" || characterName === "") {
+            alert("Por favor, introduce el nombre del actor y el personaje.");
+            return;
+        }
+
+        let actorList = document.getElementById("actorNames");
+        let genderList = document.getElementById("actorGenderIds");
+        let characterNameList = document.getElementById("actorCharacterNames");
+
+        let actorOption = new Option(`${actorName} - ${characterName}`, actorName);
+        actorList.add(actorOption);
+
+        let genderOption = new Option(genderId, genderId);
+        genderList.add(genderOption);
+
+        let characterOption = new Option(characterName, characterName);
+        characterNameList.add(characterOption);
+
+        actorNameInput.value = "";
+        characterNameInput.value = "";
+    }
+
+    function removeActor() {
+        let actorList = document.getElementById("actorNames");
+        let genderList = document.getElementById("actorGenderIds");
+        let characterNameList = document.getElementById("actorCharacterNames");
+
+        if (actorList.selectedIndex !== -1) {
+            actorList.remove(actorList.selectedIndex);
+            genderList.remove(genderList.selectedIndex);
+            characterNameList.remove(characterNameList.selectedIndex);
+        }
+    }
