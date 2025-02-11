@@ -39,4 +39,8 @@ public class MovieCrewService {
     public void deleteByPersonId(int id) {
         movieCrewRepo.deleteByPersonId(id);
     }
+
+    public void save(Movie_Crew movieCrew) {
+        movieCrewRepo.save(movieCrew);
+    }
 }

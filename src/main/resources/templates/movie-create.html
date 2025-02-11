@@ -149,7 +149,7 @@
     <h2>Actors</h2>
     <div style="display: flex; gap: 20px; align-items: center;">
         <div>
-            <label>Actors Incluidos</label>
+            <label>Actors Incluits</label>
             <select name="actorNames" id="actorNames" multiple></select>
             <select name="actorGenderIds" id="actorGenderIds" style="display: none;" multiple></select>
             <select name="actorCharacterNames" id="actorCharacterNames" style="display: none;" multiple></select>
@@ -161,20 +161,48 @@
         </div>
 
         <div>
-            <label>Nombre del Actor</label>
-            <input type="text" id="actorName" placeholder="Escribe el nombre del actor" />
+            <label>Nomb del Actor</label>
+            <input type="text" id="actorName" placeholder="Escriu el nom del actor" />
 
-            <label>Selecciona el Género</label>
+            <label>Selecciona el Genere</label>
             <select id="actorGender">
                 <option value="0">Unspecified</option>
                 <option value="1">Female</option>
                 <option value="2">Male</option>
             </select>
 
-            <label>Nombre del Personaje</label>
+            <label>Nom del Personatge</label>
             <input type="text" id="actorCharacterName" />
         </div>
     </div>
+    <h2>Equip Tècnic</h2>
+    <div style="display: flex; gap: 20px; align-items: center;">
+        <div>
+            <label>Equip Inclòs</label>
+            <select name="crewNamesVisible" id="crewNamesVisible" multiple></select>
+
+            <select name="crewNames" id="crewNames" style="display: none;" multiple></select>
+            <select name="crewJobs" id="crewJobs" style="display: none;" multiple></select>
+            <select name="crewDepartments" id="crewDepartments" style="display: none;" multiple></select>
+        </div>
+
+        <div style="display: flex; flex-direction: column;">
+            <button type="button" onclick="moveCrew()">⬅</button>
+            <button type="button" onclick="removeCrew()">➜</button>
+        </div>
+
+        <div>
+            <label>Nom de la Persona</label>
+            <input type="text" id="crewName" placeholder="Escriu el nom de la persona" />
+
+            <label>Treball</label>
+            <input type="text" id="crewJob" placeholder="Escriu el treball" />
+
+            <label>Departament</label>
+            <input type="text" id="crewDepartment" placeholder="Escriu el departament" />
+        </div>
+    </div>
+
 
 
     <button type="submit">Desar nova pel·lícula</button>

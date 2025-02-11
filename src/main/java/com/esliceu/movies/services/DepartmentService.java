@@ -27,4 +27,8 @@ public class DepartmentService {
     public void deleteById(int id) {
         departmentRepo.deleteById(id);
     }
+
+    public Department findByName(String departmentName) {
+        return departmentRepo.findByDepartmentNameContainingIgnoreCase(departmentName).getFirst();
+    }
 }

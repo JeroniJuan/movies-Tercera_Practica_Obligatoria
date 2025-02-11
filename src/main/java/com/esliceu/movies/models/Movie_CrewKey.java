@@ -16,6 +16,12 @@ public class Movie_CrewKey implements Serializable {
     public Movie_CrewKey() {
     }
 
+    public Movie_CrewKey(int person_id, int movie_id, int department_id) {
+        this.person_id = person_id;
+        this.movie_id = movie_id;
+        this.department_id = department_id;
+    }
+
     public int getPerson_id() {
         return person_id;
     }

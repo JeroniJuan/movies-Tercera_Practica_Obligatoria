@@ -230,11 +230,49 @@
     <div style="display: flex; gap: 20px; align-items: center;">
         <div>
             <label>Equip Inclòs</label>
-            <select name="crewIds" id="crewIds" multiple>
-                <option th:each="crew : ${movieCrews}" th:value="${crew.person.id}"
-                        th:text="${crew.person.personName + ' - ' + crew.job}">
-                </option>
+            <select name="crewNamesVisible" id="crewNamesVisible" multiple>
+                <th:block th:each="crew : ${movieCrews}">
+                    <option th:text="${crew.person.personName} + ' - ' + ${crew.job} + ' (' + ${crew.department.departmentName} + ')'"
+                            selected="selected">
+                    </option>
+                </th:block>
             </select>
+
+            <select name="crewNames" id="crewNames" style="display: none;" multiple>
+                <th:block th:each="crew : ${movieCrews}">
+                    <option th:value="${crew.person.personName}" th:text="${crew.person.personName}" selected="selected"></option>
+                </th:block>
+            </select>
+
+            <select name="crewJobs" id="crewJobs" style="display: none;" multiple>
+                <th:block th:each="crew : ${movieCrews}">
+                    <option th:value="${crew.job}" th:text="${crew.job}" selected="selected"></option>
+                </th:block>
+            </select>
+
+            <select name="crewDepartments" id="crewDepartments" style="display: none;" multiple>
+                <th:block th:each="crew : ${movieCrews}">
+                    <option th:value="${crew.department.departmentName}"
+                            th:text="${crew.department.departmentName}" selected="selected">
+                    </option>
+                </th:block>
+            </select>
+        </div>
+
+        <div style="display: flex; flex-direction: column;">
+            <button type="button" onclick="moveCrew()">⬅</button>
+            <button type="button" onclick="removeCrew()">➜</button>
+        </div>
+
+        <div>
+            <label>Nom de la Persona</label>
+            <input type="text" id="crewName" placeholder="Escriu el nomb de la persona" />
+
+            <label>Treball</label>
+            <input type="text" id="crewJob" placeholder="Escriu el treball" />
+
+            <label>Departament</label>
+            <input type="text" id="crewDepartment" placeholder="Escriu el departament" />
         </div>
     </div>
     <button type="submit">Desar canvis</button>

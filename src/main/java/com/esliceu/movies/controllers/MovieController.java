@@ -64,6 +64,9 @@ public class MovieController {
     @Autowired
     ProductionCompanyService productionCompanyService;
 
+    @Autowired
+    DepartmentService departmentService;
+
     @GetMapping("/movie")
     public String getMovieDetails(@RequestParam int id, Model model, HttpSession session) {
         Movie movie = movieService.findById(id);
@@ -132,6 +135,9 @@ public class MovieController {
                               @RequestParam(required = false) List<String> actorNames,
                               @RequestParam(required = false) List<Integer> actorGenderIds,
                               @RequestParam(required = false) List<String> actorCharacterNames,
+                              @RequestParam(required = false) List<String> crewNames,
+                              @RequestParam(required = false) List<String> crewJobs,
+                              @RequestParam(required = false) List<String> crewDepartments,
                               HttpSession session) {
 
         Movie movie = movieService.findById(id);
@@ -198,13 +204,10 @@ public class MovieController {
 
                 for (int i = 0; i < actorNames.size(); i++) {
                     String actorNameWithCharacter = actorNames.get(i);
-
                     String actorName = actorNameWithCharacter.split(" - ")[0];
 
                     Integer genderId = actorGenderIds.get(i);
                     String characterName = actorCharacterNames.get(i);
-
-                    System.out.println("Actor name = " + actorName);
 
                     Person actor = personService.findPersonByName(actorName);
                     if (actor == null) {
@@ -212,7 +215,6 @@ public class MovieController {
                     }
 
                     Gender gender = genderService.findById(genderId);
-
                     if (actor != null && gender != null) {
                         Movie_Cast movieCast = new Movie_Cast();
                         Movie_CastKey movieCastKey = new Movie_CastKey(movie.getId(), actor.getId());
@@ -231,8 +233,47 @@ public class MovieController {
             }
         }
 
+        if (crewNames != null && crewJobs != null && crewDepartments != null) {
+            if (crewNames.size() == crewJobs.size() && crewNames.size() == crewDepartments.size()) {
+                movieCrewService.deleteByMovieId(movie.getId());
+
+                for (int i = 0; i < crewNames.size(); i++) {
+                    String crewName = crewNames.get(i);
+                    String job = crewJobs.get(i);
+                    String departmentName = crewDepartments.get(i);
+
+                    Person crewMember = personService.findPersonByName(crewName);
+                    if (crewMember == null) {
+                        crewMember = new Person();
+                        crewMember.setPersonName(crewName);
+                        personService.save(crewMember);
+                    }
+
+                    Department department = departmentService.findByName(departmentName);
+                    if (department == null) {
+                        department = new Department();
+                        department.setDepartmentName(departmentName);
+                        departmentService.save(department);
+                    }
+
+                    Movie_Crew movieCrew = new Movie_Crew();
+                    Movie_CrewKey movieCrewKey = new Movie_CrewKey(movie.getId(), crewMember.getId(), department.getId());
+                    movieCrew.setId(movieCrewKey);
+                    movieCrew.setMovie(movie);
+                    movieCrew.setPerson(crewMember);
+                    movieCrew.setDepartment(department);
+                    movieCrew.setJob(job);
+
+                    movieCrewService.save(movieCrew);
+                }
+            } else {
+                return "redirect:/";
+            }
+        }
+
         return "redirect:/movie?id=" + movie.getId();
     }
+
 
 
 
@@ -280,6 +321,9 @@ public class MovieController {
                               @RequestParam(required = false) List<String> actorNames,
                               @RequestParam(required = false) List<Integer> actorGenderIds,
                               @RequestParam(required = false) List<String> actorCharacterNames,
+                              @RequestParam(required = false) List<String> crewNames,
+                              @RequestParam(required = false) List<String> crewJobs,
+                              @RequestParam(required = false) List<String> crewDepartments,
                               HttpSession session) {
 
         Integer userId = (Integer) session.getAttribute("loggedInUserId");
@@ -364,8 +408,39 @@ public class MovieController {
             }
         }
 
+        if (crewNames != null && crewJobs != null && crewDepartments != null) {
+            if (crewNames.size() == crewJobs.size() && crewNames.size() == crewDepartments.size()) {
+                for (int i = 0; i < crewNames.size(); i++) {
+                    String crewName = crewNames.get(i);
+                    String job = crewJobs.get(i);
+                    String departmentName = crewDepartments.get(i);
+
+                    Person crewMember = personService.findPersonByName(crewName);
+                    if (crewMember == null) {
+                        continue;
+                    }
+
+                    Department department = departmentService.findByName(departmentName);
+                    if (department == null) {
+                        continue;
+                    }
+
+                    Movie_Crew movieCrew = new Movie_Crew();
+                    Movie_CrewKey movieCrewKey = new Movie_CrewKey(movie.getId(), crewMember.getId());
+                    movieCrew.setId(movieCrewKey);
+                    movieCrew.setMovie(movie);
+                    movieCrew.setPerson(crewMember);
+                    movieCrew.setJob(job);
+                    movieCrew.setDepartment(department);
+
+                    movieCrewService.save(movieCrew);
+                }
+            }
+        }
+
         return "redirect:/movie?id=" + movie.getId();
     }
+
 
 
 

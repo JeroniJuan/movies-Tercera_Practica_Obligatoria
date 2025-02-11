@@ -9,8 +9,8 @@ public class Department {
     @Column(name = "department_id")
     private int id;
 
-    @Column(length = 200)
-    private String department_name;
+    @Column(length = 200, name="department_name")
+    private String departmentName;
 
     public int getId() {
         return id;
@@ -20,11 +20,11 @@ public class Department {
         this.id = id;
     }
 
-    public String getDepartment_name() {
-        return department_name;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setDepartment_name(String department_name) {
-        this.department_name = department_name;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 }
